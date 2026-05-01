@@ -1,0 +1,19 @@
+#BlueJ class context
+comment0.target=Motor
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Motor\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=
+comment1.target=Motor()
+comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Motor\r\n
+comment2.params=
+comment2.target=double\ getCilindrada()
+comment3.params=cilindrada
+comment3.target=void\ setCilindrada(double)
+comment4.params=
+comment4.target=int\ getPotencia()
+comment5.params=potencia
+comment5.target=void\ setPotencia(int)
+comment6.params=
+comment6.target=int\ getNumeroCilindros()
+comment7.params=numeroCilindros
+comment7.target=void\ setNumeroCilindros(int)
+numComments=8
