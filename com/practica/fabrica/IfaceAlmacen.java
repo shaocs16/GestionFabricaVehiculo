@@ -50,4 +50,7 @@ public interface IfaceAlmacen
     void vaciar();
     
     int getTotalCoches();
+
+    List<RegistroMontaje> getRegistrosPorFecha(Date fecha);
+    void registrarOperacion(RegistroMontaje registro);
 }

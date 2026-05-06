@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=Trabajador
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Trabajador\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=nombre\ apellidos\ dni\ direccion\ numSegSocial\ puestoTrabajo\ salario\ fechaPago
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Trabajador\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=nombre\ apellidos\ dni\ direccion\ numSegSocial\ puestoTrabajo\ salario\ fechaIngreso
 comment1.target=Trabajador(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.time.LocalDate)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Trabajador\r\n
 comment10.params=
@@ -17,9 +17,9 @@ comment14.target=double\ getSalario()
 comment15.params=salario
 comment15.target=void\ setSalario(double)
 comment16.params=
-comment16.target=java.time.LocalDate\ getFechaPago()
-comment17.params=fechaPago
-comment17.target=void\ setFechaPago(java.time.LocalDate)
+comment16.target=java.time.LocalDate\ getfechaIngreso()
+comment17.params=fechaIngreso
+comment17.target=void\ setfechaIngreso(java.time.LocalDate)
 comment2.params=
 comment2.target=java.lang.String\ getNombre()
 comment3.params=nombre

@@ -38,6 +38,9 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     private ArrayList<Operario> operarios;
 
     private ArrayList<Observador> observadores;
+    
+    // Historial
+    private List<RegistroMontaje> historial;
 
     /**
      * Constructor for objects of class Alamcen
@@ -49,16 +52,20 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
         furgonetas = new ArrayList<>();
         ruedas = new ArrayList<>();
         motores = new ArrayList<>();
+        tapicerias = new ArrayList<>();
         administradoresSistema = new ArrayList<>();
         gestoresPlanta = new ArrayList<>();
         mecanicos = new ArrayList<>();
         operarios = new ArrayList<>();
         observadores = new ArrayList<>();
+        historial = new ArrayList<>();
     }
 
     @Override
     public void agregarBiplazaDeportivo(BiplazaDeportivo biplazaDeportivo) {
         biplazasDeportivos.add(biplazaDeportivo);
+        registrarOperacion(new RegistroMontaje(new Date(), "Biplaza Deportivo", "Añadido al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Biplaza Deportivo");
     }
 
     @Override
@@ -69,6 +76,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarFurgoneta(Furgoneta furgoneta) {
         furgonetas.add(furgoneta);
+        registrarOperacion(new RegistroMontaje(new Date(), "Furgoneta", "Añadida al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Furgoneta");
     }
 
     @Override
@@ -79,6 +88,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarTurismo(Turismo turismo) {
         turismos.add(turismo);
+        registrarOperacion(new RegistroMontaje(new Date(), "Turismo", "Añadido al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Turismo");
     }
 
     @Override
@@ -89,6 +100,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarMotor(Motor motor) {
         motores.add(motor);
+        registrarOperacion(new RegistroMontaje(new Date(), "Motor", "Añadido al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Motor");
     }
 
     @Override
@@ -99,6 +112,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarTapiceria(Tapiceria tapiceria) {
         tapicerias.add(tapiceria);
+        registrarOperacion(new RegistroMontaje(new Date(), "Tapiceria", "Añadida al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Tapiceria");
     }
 
     @Override
@@ -109,6 +124,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarRueda(Rueda rueda) {
         ruedas.add(rueda);
+        registrarOperacion(new RegistroMontaje(new Date(), "Rueda", "Añadida al almacén"));
+        notifyObservadores("Nuevo componente en almacén: Rueda");
     }
 
     @Override
@@ -178,13 +195,11 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void addObservador(Observador observador) {
         observadores.add(observador);
-
     }
 
     @Override
     public void removeObservador(Observador observador) {
         observadores.remove(observador);
-
     }
 
     @Override
@@ -192,5 +207,27 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
         for (Observador observador : observadores) {
             observador.update(message);
         }
+    }
+    
+    @Override
+    public List<RegistroMontaje> getRegistrosPorFecha(Date fecha) {
+        List<RegistroMontaje> resultado = new ArrayList<>();
+        Calendar cal1 = Calendar.getInstance();
+        Calendar cal2 = Calendar.getInstance();
+        cal1.setTime(fecha);
+        
+        for (RegistroMontaje registro : historial) {
+            cal2.setTime(registro.getFecha());
+            if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
+                cal1.get(Calendar.DAY_OF_YEAR) == cal2.get(Calendar.DAY_OF_YEAR)) {
+                resultado.add(registro);
+            }
+        }
+        return resultado;
+    }
+
+    @Override
+    public void registrarOperacion(RegistroMontaje registro) {
+        historial.add(registro);
     }
 }

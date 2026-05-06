@@ -16,7 +16,7 @@ public class Dashboard implements Observador {
 
     @Override
     public void update(String message) {
-        visualizador.mostrarDatos();
+        visualizador.mostrarDatos(message);
     }
 
 }
