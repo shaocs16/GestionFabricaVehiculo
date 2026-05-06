@@ -30,14 +30,17 @@ public class CadenaMontaje implements Observable {
 
     public void agregarBiplaza(BiplazaDeportivo biplaza) {
         cadenaBiplaza.add(biplaza);
+        notifyObservadores("Se ha agregado un biplaza a la cadena de montaje");
     }
 
     public void agregarTurismo(Turismo turismo) {
         cadenaTurismo.add(turismo);
+        notifyObservadores("Se ha agrado un turismo a la cadena de montaje");
     }
 
     public void agregarFurgoneta(Furgoneta furgoneta) {
         cadenaFurgoneta.add(furgoneta);
+        notifyObservadores("Se ha agregado una furgoneta a la cadena de montaje");
     }
 
     @Override

@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Observable
+comment0.text=\r\n\ Write\ a\ description\ of\ interface\ Observable\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=observador
+comment1.target=void\ addObservador(Observador)
+comment2.params=observador
+comment2.target=void\ removeObservador(Observador)
+comment3.params=message
+comment3.target=void\ notifyObservadores(java.lang.String)
+numComments=4

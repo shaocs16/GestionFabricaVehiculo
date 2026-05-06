@@ -1,7 +1,7 @@
 #BlueJ class context
 comment0.target=GestorPlanta
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ GestorPlanta\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=nombre\ apellidos\ dni\ direccion\ numSegSocial\ puestoTrabajo\ salario\ fechaPago
-comment1.target=GestorPlanta(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.time.LocalDate)
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ GestorPlanta\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=nombre\ apellidos\ dni\ direccion\ numSegSocial\ salario\ fechaIngreso
+comment1.target=GestorPlanta(java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ java.lang.String,\ double,\ java.time.LocalDate)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ GestorPlanta\r\n
 numComments=2

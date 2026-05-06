@@ -8,5 +8,5 @@ package com.practica.dashboard;
  */
 
 public interface IfaceVisualizarDatos {
-    void mostrarDatos();
+    void mostrarDatos(String mensaje);
 }

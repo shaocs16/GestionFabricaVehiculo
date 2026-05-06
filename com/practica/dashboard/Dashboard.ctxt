@@ -1,4 +1,10 @@
 #BlueJ class context
 comment0.target=Dashboard
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Dashboard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-numComments=1
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Dashboard\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=visualizador
+comment1.target=Dashboard(IfaceVisualizarDatos)
+comment2.params=visualizador\ almacen\ cadena
+comment2.target=Dashboard(IfaceVisualizarDatos,\ com.practica.fabrica.AlmacenDatos,\ com.practica.montaje.CadenaMontaje)
+comment3.params=message
+comment3.target=void\ update(java.lang.String)
+numComments=4

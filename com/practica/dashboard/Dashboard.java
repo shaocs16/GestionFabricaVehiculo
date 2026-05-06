@@ -1,5 +1,8 @@
 package com.practica.dashboard;
 
+import com.practica.fabrica.AlmacenDatos;
+import com.practica.montaje.CadenaMontaje;
+
 /**
  * Write a description of class Dashboard here.
  * 
@@ -14,9 +17,16 @@ public class Dashboard implements Observador {
         this.visualizador = visualizador;
     }
 
+    // Constructor opcional para suscribirse automáticamente
+    public Dashboard(IfaceVisualizarDatos visualizador, AlmacenDatos almacen, CadenaMontaje cadena) {
+        this.visualizador = visualizador;
+        almacen.addObservador(this);
+        cadena.addObservador(this);
+    }
+
     @Override
     public void update(String message) {
-        visualizador.mostrarDatos();
+        visualizador.mostrarDatos(message);
     }
 
 }

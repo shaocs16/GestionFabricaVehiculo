@@ -1,0 +1,14 @@
+#BlueJ class context
+comment0.target=RegistroMontaje
+comment0.text=\r\n\ Clase\ para\ almacenar\ el\ registro\ hist\u00F3rico\ de\ operaciones\ (ensamblajes)\r\n\ en\ la\ cadena\ de\ montaje\ y\ almac\u00E9n.\r\n
+comment1.params=componente\ accion
+comment1.target=RegistroMontaje(java.lang.String,\ java.lang.String)
+comment2.params=
+comment2.target=java.util.Date\ getFecha()
+comment3.params=
+comment3.target=java.lang.String\ getComponente()
+comment4.params=
+comment4.target=java.lang.String\ getAccion()
+comment5.params=
+comment5.target=java.lang.String\ toString()
+numComments=6
