@@ -7,13 +7,11 @@ package com.practica.dashboard;
  * @version (a version number or a date)
  */
 public class VisualizarConsola implements IfaceVisualizarDatos {
+    public void mostrarDatos() {
 
-    @Override
-    public void mostrarDatos(String mensaje) {
-        System.out.println("==========================================");
-        System.out.println("   [DASHBOARD] - ACTUALIZACIÓN DE ESTADO  ");
-        System.out.println("==========================================");
-        System.out.println(" -> " + mensaje);
-        System.out.println("==========================================");
+    }
+
+    public void mostrarEstadoCadenaMontaje() {
+
     }
 }
