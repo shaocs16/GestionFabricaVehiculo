@@ -5,4 +5,6 @@ comment1.params=color\ plazas\ pesoAutorizado\ taraVehiculo\ tapiceria\ motor\ r
 comment1.target=Turismo(java.lang.String,\ int,\ double,\ double,\ com.practica.tapiceria.Tapiceria,\ com.practica.motor.Motor,\ com.practica.rueda.Rueda[])
 comment2.params=
 comment2.target=java.lang.String\ tipoCoche()
-numComments=3
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4
