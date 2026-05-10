@@ -1,34 +1,52 @@
 package com.practica.vehiculo;
 
 import com.practica.tapiceria.*;
+
+import java.util.Arrays;
+
 import com.practica.motor.*;
 import com.practica.rueda.*;
 
 /**
  * Write a description of class Coche here.
  * 
- * @author (your name) 
+ * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Coche
-{
+public abstract class Coche {
     // instance variables - replace the example below with your own
     private String color;
     private int plazas;
     private double pesoAutorizado;
     private double taraVehiculo;
-    
+
     private Tapiceria tapiceria;
     private Motor motor;
-    private Rueda[] rueda;
+    private Rueda[] rueda = new Rueda[4];
+
+    private EstadoMontaje estado;
+
+    private boolean averiado = false;
+    private int tiempoReparacion = 0;
 
     /**
      * Constructor for objects of class Coche
      */
-    public Coche(){
-        
+    public Coche() {
+
     }
-    
+
+    public Coche(String color, int plazas, double pesoAutorizado, double taraVehiculo,
+            Tapiceria tapiceria, Motor motor, Rueda[] rueda) {
+        this.color = color;
+        this.plazas = plazas;
+        this.pesoAutorizado = pesoAutorizado;
+        this.taraVehiculo = taraVehiculo;
+        this.tapiceria = tapiceria;
+        this.motor = motor;
+        this.rueda = rueda;
+    }
+
     public String getColor() {
         return color;
     }
@@ -83,5 +101,38 @@ public abstract class Coche
 
     public void setMotor(Motor motor) {
         this.motor = motor;
+    }
+
+    public EstadoMontaje getEstadoMontaje() {
+        return estado;
+    }
+
+    public void setEstadoMontaje(EstadoMontaje estado) {
+        this.estado = estado;
+    }
+
+    public boolean isAveriado() {
+        return averiado;
+    }
+
+    public void setAveriado(boolean averiado) {
+        this.averiado = averiado;
+    }
+
+    public int getTiempoReparacion() {
+        return tiempoReparacion;
+    }
+
+    public void setTiempoReparacion(int tiempoReparacion) {
+        this.tiempoReparacion = tiempoReparacion;
+    }
+
+    public abstract String tipoCoche();
+
+    @Override
+    public String toString() {
+        return "Coche [color=" + color + ", plazas=" + plazas + ", pesoAutorizado=" + pesoAutorizado + ", taraVehiculo="
+                + taraVehiculo + ", tapiceria=" + tapiceria + ", motor=" + motor + ", rueda=" + Arrays.toString(rueda)
+                + "]";
     }
 }
