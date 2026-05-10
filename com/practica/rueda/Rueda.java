@@ -1,12 +1,14 @@
 package com.practica.rueda;
 
+
 /**
  * Write a description of class Rueda here.
  * 
- * @author (your name)
+ * @author (your name) 
  * @version (a version number or a date)
  */
-public abstract class Rueda {
+public abstract class Rueda
+{
     // instance variables - replace the example below with your own
     private int ancho;
     private int pulgadasLlanta;
@@ -16,18 +18,11 @@ public abstract class Rueda {
     /**
      * Constructor for objects of class Rueda
      */
-    public Rueda() {
+    public Rueda()
+    {
         // initialise instance variables
     }
-
-    /** Constructor con parámetros. */
-    public Rueda(int ancho, int pulgadasLlanta, int indiceCarga, int codigoVelocidad) {
-        this.ancho = ancho;
-        this.pulgadasLlanta = pulgadasLlanta;
-        this.indiceCarga = indiceCarga;
-        this.codigoVelocidad = codigoVelocidad;
-    }
-
+    
     public int getAncho() {
         return ancho;
     }
@@ -58,13 +53,5 @@ public abstract class Rueda {
 
     public void setVelocidad(int codigoVelocidad) {
         this.codigoVelocidad = codigoVelocidad;
-    }
-
-    public abstract String tipoRueda();
-
-    @Override
-    public String toString() {
-        return "Rueda [ancho=" + ancho + ", pulgadasLlanta=" + pulgadasLlanta + ", indiceCarga=" + indiceCarga
-                + ", codigoVelocidad=" + codigoVelocidad + ", ";
     }
 }

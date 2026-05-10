@@ -43,18 +43,6 @@ public class CadenaMontaje implements Observable {
         notifyObservadores("Se ha agregado una Furgoneta a la cadena de montaje.");
     }
 
-    public ArrayList<BiplazaDeportivo> getCadenaBiplaza() {
-        return cadenaBiplaza;
-    }
-
-    public ArrayList<Turismo> getCadenaTurismo() {
-        return cadenaTurismo;
-    }
-
-    public ArrayList<Furgoneta> getCadenaFurgoneta() {
-        return cadenaFurgoneta;
-    }
-
     @Override
     public void addObservador(Observador observador) {
         observadores.add(observador);
