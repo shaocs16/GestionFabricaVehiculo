@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=Deportivo
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Deportivo\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=Deportivo()
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ Deportivo\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=ancho\ pulgadasLlanta\ indiceCarga\ codigoVelocidad
+comment1.target=Deportivo(int,\ int,\ int,\ int)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Deportivo\r\n
-numComments=2
+comment2.params=
+comment2.target=java.lang.String\ tipoRueda()
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4

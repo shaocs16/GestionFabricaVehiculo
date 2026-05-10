@@ -1,7 +1,11 @@
 #BlueJ class context
 comment0.target=BiplazaDeportivo
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ BiplazaDeportivo\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=BiplazaDeportivo()
+comment0.text=\r\n\ Write\ a\ description\ of\ class\ BiplazaDeportivo\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment1.params=color\ plazas\ pesoAutorizado\ taraVehiculo\ tapiceria\ motor\ rueda
+comment1.target=BiplazaDeportivo(java.lang.String,\ int,\ double,\ double,\ com.practica.tapiceria.Tapiceria,\ com.practica.motor.Motor,\ com.practica.rueda.Rueda[])
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ BiplazaDeportivo\r\n
-numComments=2
+comment2.params=
+comment2.target=java.lang.String\ tipoCoche()
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4
