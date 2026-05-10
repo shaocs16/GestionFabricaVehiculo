@@ -6,4 +6,6 @@ comment1.target=Deportivo(int,\ int,\ int,\ int)
 comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Deportivo\r\n
 comment2.params=
 comment2.target=java.lang.String\ tipoRueda()
-numComments=3
+comment3.params=
+comment3.target=java.lang.String\ toString()
+numComments=4
