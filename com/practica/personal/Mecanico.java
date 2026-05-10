@@ -27,6 +27,19 @@ public class Mecanico extends Trabajador {
         }
     }
 
+    public boolean esEficiente() {
+        return reparacionesRealizadas > 20;
+    }
+
+    public int getTiempoReparacion() {
+        if (esEficiente()) {
+            return 1;
+        } else {
+            // entre 2 y 5 segundos
+            return 2 + (int) (Math.random() * 4);
+        }
+    }
+
     public int getReparacionesRealizadas() {
         return reparacionesRealizadas;
     }

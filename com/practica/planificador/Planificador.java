@@ -204,7 +204,7 @@ public class Planificador implements Observable {
         for (Coche c : lista) {
             if (c.getEstadoMontaje() != EstadoMontaje.TERMINADO && !c.isAveriado()) {
                 c.setAveriado(true);
-                c.setTiempoReparacion(3);
+                c.setTiempoReparacion(-1); // Se asignará dinámicamente cuando el mecánico lo atienda
                 String msg = "Se ha detectado avería en cadena " + nombreCadena
                         + " — El Gestor de Planta llamará al mecánico.";
                 System.out.println(msg);
@@ -222,7 +222,7 @@ public class Planificador implements Observable {
 
         if (tipoSimulacion == 3 && caidaDeLuz) {
             tiempoReparacionLuz--;
-            
+
             if (tiempoReparacionLuz == 1 && admin != null) {
                 admin.restaurarSistemaGestion(this);
             }
@@ -244,11 +244,17 @@ public class Planificador implements Observable {
 
         for (Coche c : lista) {
             if (c.isAveriado()) {
+                if (c.getTiempoReparacion() == -1) {
+                    c.setTiempoReparacion(mec.getTiempoReparacion());
+                }
+
                 c.setTiempoReparacion(c.getTiempoReparacion() - 1);
+
                 if (c.getTiempoReparacion() <= 0) {
-                    mec.repararCoche(c); // método real del Mecánico
+                    mec.repararCoche(c);
+                    String perfil = mec.esEficiente() ? "eficiente" : "estándar";
                     String msg = mec.getNombre() + " " + mec.getApellidos()
-                            + " ha completado la reparación ("
+                            + " (" + perfil + ") ha completado la reparación ("
                             + mec.getReparacionesRealizadas() + " reparaciones totales).";
                     System.out.println(msg);
                     cadenaMontaje.notifyObservadores(msg);
