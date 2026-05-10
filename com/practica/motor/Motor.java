@@ -1,14 +1,12 @@
 package com.practica.motor;
 
-
 /**
  * Write a description of class Motor here.
  * 
- * @author (your name) 
+ * @author (your name)
  * @version (a version number or a date)
  */
-public abstract class Motor
-{
+public abstract class Motor {
     // instance variables - replace the example below with your own
     private double cilindrada;
     private int potencia;
@@ -17,12 +15,17 @@ public abstract class Motor
     /**
      * Constructor for objects of class Motor
      */
-    public Motor()
-    {
+    public Motor() {
         // initialise instance variables
-        
+
     }
-    
+
+    public Motor(double cilindrada, int potencia, int numeroCilindros) {
+        this.cilindrada = cilindrada;
+        this.potencia = potencia;
+        this.numeroCilindros = numeroCilindros;
+    }
+
     public double getCilindrada() {
         return cilindrada;
     }
@@ -45,5 +48,13 @@ public abstract class Motor
 
     public void setNumeroCilindros(int numeroCilindros) {
         this.numeroCilindros = numeroCilindros;
+    }
+
+    public abstract String tipoMotor();
+
+    @Override
+    public String toString() {
+        return "Motor [cilindrada=" + cilindrada + ", potencia=" + potencia + ", numeroCilindros=" + numeroCilindros
+                + "]";
     }
 }
