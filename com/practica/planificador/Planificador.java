@@ -19,6 +19,7 @@ public class Planificador implements Observable {
     private int tipoSimulacion;
 
     private boolean caidaDeLuz = false;
+    private boolean sistemaGestionBloqueado = false;
     private int tiempoReparacionLuz = 0;
     private boolean apagonGenerado = false;
 
@@ -190,6 +191,7 @@ public class Planificador implements Observable {
 
         if (tipoSimulacion == 3 && !apagonGenerado && Math.random() < 0.1) {
             caidaDeLuz = true;
+            sistemaGestionBloqueado = true;
             tiempoReparacionLuz = 3;
             apagonGenerado = true;
             String msg = "La luz se ha caído — El Administrador trabajará para restaurarla.";
@@ -220,8 +222,12 @@ public class Planificador implements Observable {
 
         if (tipoSimulacion == 3 && caidaDeLuz) {
             tiempoReparacionLuz--;
+            
+            if (tiempoReparacionLuz == 1 && admin != null) {
+                admin.restaurarSistemaGestion(this);
+            }
             if (tiempoReparacionLuz <= 0 && admin != null) {
-                admin.restaurarLuz(this);
+                admin.restaurarCadenasMontaje(this);
             }
         }
 
@@ -331,5 +337,13 @@ public class Planificador implements Observable {
 
     public void setCaidaDeLuz(boolean caidaDeLuz) {
         this.caidaDeLuz = caidaDeLuz;
+    }
+
+    public boolean isSistemaGestionBloqueado() {
+        return sistemaGestionBloqueado;
+    }
+
+    public void setSistemaGestionBloqueado(boolean sistemaGestionBloqueado) {
+        this.sistemaGestionBloqueado = sistemaGestionBloqueado;
     }
 }

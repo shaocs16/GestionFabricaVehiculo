@@ -20,12 +20,22 @@ public class AdministradorSistema extends Trabajador {
         this.restauracionesRealizadas = 0;
     }
 
-    public void restaurarLuz(Planificador planificador) {
-        if (planificador.isCaidaDeLuz()) {
-            planificador.setCaidaDeLuz(false);
+    public void restaurarSistemaGestion(Planificador planificador) {
+        if (planificador.isSistemaGestionBloqueado()) {
+            planificador.setSistemaGestionBloqueado(false);
             restauracionesRealizadas++;
             String msg = "El administrador " + getNombre() + " " + getApellidos()
-                    + " ha restaurado el suministro eléctrico de la fábrica.";
+                    + " ha restaurado el sistema de gestión de la fábrica.";
+            System.out.println(msg);
+            planificador.notifyObservadores(msg);
+        }
+    }
+
+    public void restaurarCadenasMontaje(Planificador planificador) {
+        if (planificador.isCaidaDeLuz()) {
+            planificador.setCaidaDeLuz(false);
+            String msg = "El administrador " + getNombre() + " " + getApellidos()
+                    + " ha reanudado las cadenas de montaje.";
             System.out.println(msg);
             planificador.notifyObservadores(msg);
         }
