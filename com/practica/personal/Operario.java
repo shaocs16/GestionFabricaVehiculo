@@ -10,7 +10,6 @@ import java.time.LocalDate;
  */
 public class Operario extends Trabajador {
     // instance variables - replace the example below with your own
-    private int montajesRealizados;
 
     /**
      * Constructor for objects of class Operario
@@ -19,19 +18,6 @@ public class Operario extends Trabajador {
             String direccion, String numSegSocial,
             double salario, LocalDate fechaIngreso) {
         super(nombre, apellidos, dni, direccion, numSegSocial, "Operario", salario, fechaIngreso);
-        this.montajesRealizados = 0;
     }
-
-    public boolean esEficiente(){
-        return montajesRealizados > 10;
-    }
-
-    public int getTiempoMontaje(){
-        return esEficiente() ? 1 : 3;
-    }
-    public void registrarMontajeCompletado() {
-        this.montajesRealizados++;
-    }
-
 
 }
