@@ -166,20 +166,27 @@ public class Planificador implements Observable {
     }
 
     private void generarEventos(int t) {
-        if (tipoSimulacion == 1)
+        if (tipoSimulacion == 1) {
             return;
+        }
 
         int maxAverias = (tipoSimulacion == 3) ? 3 : 2;
 
-        if (averiasBiplaza < maxAverias && Math.random() < 0.2)
-            if (generarAveriaLista(cadenaMontaje.getCadenaBiplaza(), "Biplaza"))
+        if (averiasBiplaza < maxAverias && Math.random() < 0.2) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaBiplaza(), "Biplaza")) {
                 averiasBiplaza++;
-        if (averiasTurismo < maxAverias && Math.random() < 0.2)
-            if (generarAveriaLista(cadenaMontaje.getCadenaTurismo(), "Turismo"))
+            }
+        }
+        if (averiasTurismo < maxAverias && Math.random() < 0.2) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaTurismo(), "Turismo")) {
                 averiasTurismo++;
-        if (averiasFurgoneta < maxAverias && Math.random() < 0.2)
-            if (generarAveriaLista(cadenaMontaje.getCadenaFurgoneta(), "Furgoneta"))
+            }
+        }
+        if (averiasFurgoneta < maxAverias && Math.random() < 0.2) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaFurgoneta(), "Furgoneta")) {
                 averiasFurgoneta++;
+            }
+        }
 
         if (tipoSimulacion == 3 && !apagonGenerado && Math.random() < 0.1) {
             caidaDeLuz = true;
@@ -207,8 +214,9 @@ public class Planificador implements Observable {
     }
 
     private void resolverIncidencias() {
-        if (tipoSimulacion == 1)
+        if (tipoSimulacion == 1) {
             return;
+        }
 
         if (tipoSimulacion == 3 && caidaDeLuz) {
             tiempoReparacionLuz--;
@@ -223,8 +231,9 @@ public class Planificador implements Observable {
     }
 
     private void resolverAveriasConMecanico(ArrayList<? extends Coche> lista, int indexMec) {
-        if (mecanicos == null || indexMec >= mecanicos.length)
+        if (mecanicos == null || indexMec >= mecanicos.length) {
             return;
+        }
         Mecanico mec = mecanicos[indexMec];
 
         for (Coche c : lista) {
@@ -249,11 +258,13 @@ public class Planificador implements Observable {
     }
 
     private boolean todosTerminados(ArrayList<? extends Coche> lista) {
-        if (lista.isEmpty())
+        if (lista.isEmpty()) {
             return true;
+        }
         for (Coche c : lista) {
-            if (c.getEstadoMontaje() != EstadoMontaje.TERMINADO)
+            if (c.getEstadoMontaje() != EstadoMontaje.TERMINADO) {
                 return false;
+            }
         }
         return true;
     }
