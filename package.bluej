@@ -1,8 +1,8 @@
 #BlueJ package file
-editor.fx.0.height=916
-editor.fx.0.width=1317
-editor.fx.0.x=2066
-editor.fx.0.y=91
+editor.fx.0.height=0
+editor.fx.0.width=0
+editor.fx.0.x=0
+editor.fx.0.y=0
 objectbench.height=93
 objectbench.width=760
 package.divider.horizontal=0.6
@@ -30,9 +30,9 @@ target1.width=120
 target1.x=70
 target1.y=10
 target2.height=70
-target2.name=implementation_plan.md
+target2.name=sources.txt
 target2.type=TextTarget
-target2.width=160
+target2.width=120
 target2.x=10
 target2.y=110
 target3.height=70

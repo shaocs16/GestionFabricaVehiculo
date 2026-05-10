@@ -5,6 +5,9 @@ import com.practica.dashboard.Observador;
 import com.practica.fabrica.SistemaGestion;
 import com.practica.montaje.CadenaMontaje;
 import com.practica.vehiculo.*;
+import com.practica.montaje.Robot;
+import com.practica.personal.Operario;
+import java.time.LocalDate;
 
 import java.util.ArrayList;
 
@@ -29,6 +32,10 @@ public class Planificador implements Observable {
     private int averiasFurgoneta = 0;
 
     private ArrayList<Observador> observadores;
+    
+    private Robot[] robotsBiplaza = new Robot[4];
+    private Robot[] robotsTurismo = new Robot[4];
+    private Robot[] robotsFurgoneta = new Robot[4];
 
     /**
      * Constructor for objects of class Planificador
@@ -38,6 +45,18 @@ public class Planificador implements Observable {
         this.sistemaGestion = sistemaGestion;
         this.tipoSimulacion = tipoSimulacion;
         observadores = new ArrayList<>();
+        
+        for(int i=0; i<4; i++) {
+            robotsBiplaza[i] = new Robot("Robot Biplaza " + i, new Operario("Juan", "Perez Blanco"+i,
+                    "1234567k", "Curros Enriquez",
+                    "98", 30000, LocalDate.now()));
+            robotsTurismo[i] = new Robot("Robot Turismo " + i, new Operario("Olga", "Jimenez Dia"+i,
+                    "2345678v", "Gran Via",
+                    "45", 30000, LocalDate.now()));
+            robotsFurgoneta[i] = new Robot("Robot Furgoneta " + i, new Operario("Pablo", "Dominguez Ramos"+i,
+                    "3456789m", "Valencia",
+                    "12", 30000, LocalDate.now()));
+        }
     }
 
     public void iniciarSimulacion() {
@@ -46,40 +65,21 @@ public class Planificador implements Observable {
 
         while (!montajeTerminado) {
             System.out.println("--- T=" + segundo + " Segundos ---");
-            // 1. Resolver problemas actuales (si los hay)
             resolverIncidencias();
-
-            // 2. Ejecutar acciones de los operarios en cada estación
             trabajarEnEstaciones();
-
-            // 3. Avanzar vehículos a la siguiente estación (si la tarea terminó)
-            avanzarCadenas();
-
-            // 4. Generar eventos aleatorios según el tipo de simulación
             generarEventos(segundo);
-
-            // 5. Esperar un segundo real para simular el reloj
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 Thread.currentThread().interrupt();
             }
-
             segundo++;
             montajeTerminado = comprobarFinMontaje();
         }
         System.out.println("\nSimulación terminada en " + (segundo - 1) + " segundos.");
     }
 
-    private void avanzarCadenas() {
-
-        avanzarEstadosCadena(cadenaMontaje.getCadenaBiplaza(), "Biplaza");
-        avanzarEstadosCadena(cadenaMontaje.getCadenaTurismo(), "Turismo");
-        avanzarEstadosCadena(cadenaMontaje.getCadenaFurgoneta(), "Furgoneta");
-
-    }
-
-    private void avanzarEstadosCadena(ArrayList<? extends Coche> lista, String nombreCadena) {
+    private void procesarCadenaConRobots(ArrayList<? extends Coche> lista, Robot[] robots, String nombreCadena) {
         if (caidaDeLuz) {
             System.out.println("[APAGON] La cadena " + nombreCadena + " está detenida por falta de luz.");
             return;
@@ -99,34 +99,53 @@ public class Planificador implements Observable {
             }
 
             EstadoMontaje estadoActual = c.getEstadoMontaje();
-            EstadoMontaje estadoSiguiente;
-
-            switch (estadoActual) {
-                case CHASIS:
-                    estadoSiguiente = EstadoMontaje.MOTOR;
-                    break;
-                case MOTOR:
-                    estadoSiguiente = EstadoMontaje.TAPICERIA;
-                    break;
-                case TAPICERIA:
-                    estadoSiguiente = EstadoMontaje.RUEDAS;
-                    break;
-                case RUEDAS:
-                    estadoSiguiente = EstadoMontaje.TERMINADO;
-                    break;
-                default:
-                    estadoSiguiente = EstadoMontaje.TERMINADO;
-                    break;
+            if (estadoActual == null) {
+                estadoActual = EstadoMontaje.CHASIS;
+                c.setEstadoMontaje(EstadoMontaje.CHASIS);
             }
 
-            c.setEstadoMontaje(estadoSiguiente);
-            String msg = "[" + nombreCadena + " #" + (i + 1) + "] "
-                    + estadoActual + " -> " + estadoSiguiente;
-            System.out.println(msg);
-            cadenaMontaje.notifyObservadores(msg);
+            int indexRobot = 0;
+            EstadoMontaje estadoSiguiente = EstadoMontaje.TERMINADO;
+
+            if (estadoActual == EstadoMontaje.CHASIS) {
+                indexRobot = 0;
+                estadoSiguiente = EstadoMontaje.MOTOR;
+            }
+            else if (estadoActual == EstadoMontaje.MOTOR) {
+                indexRobot = 1;
+                estadoSiguiente = EstadoMontaje.TAPICERIA;
+            }
+            else if (estadoActual == EstadoMontaje.TAPICERIA) {
+                indexRobot = 2;
+                estadoSiguiente = EstadoMontaje.RUEDAS;
+            }
+            else if (estadoActual == EstadoMontaje.RUEDAS) {
+                indexRobot = 3;
+                estadoSiguiente = EstadoMontaje.TERMINADO;
+            }
+
+            Robot robotAsignado = robots[indexRobot];
+
+            if (robotAsignado.getCocheActual() != c) {
+                if (robotAsignado.estaLibre()) {
+                    robotAsignado.recibirCoche(c);
+                } else {
+                    i++;
+                    continue;
+                }
+            }
+
+            boolean terminado = robotAsignado.trabajar();
+            if (terminado) {
+                c.setEstadoMontaje(estadoSiguiente);
+                robotAsignado.liberarCoche();
+                String msg = "[" + nombreCadena + " #" + (i + 1) + "] "
+                        + estadoActual + " -> " + estadoSiguiente;
+                System.out.println(msg);
+                cadenaMontaje.notifyObservadores(msg);
+            }
             i++;
         }
-
     }
 
     private void generarEventos(int t) {
@@ -205,6 +224,9 @@ public class Planificador implements Observable {
     }
 
     private void trabajarEnEstaciones() {
+        procesarCadenaConRobots(cadenaMontaje.getCadenaBiplaza(), robotsBiplaza, "Biplaza");
+        procesarCadenaConRobots(cadenaMontaje.getCadenaTurismo(), robotsTurismo, "Turismo");
+        procesarCadenaConRobots(cadenaMontaje.getCadenaFurgoneta(), robotsFurgoneta, "Furgoneta");
     }
 
     private boolean comprobarFinMontaje() {
