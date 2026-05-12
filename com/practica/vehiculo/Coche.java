@@ -7,14 +7,8 @@ import java.util.Arrays;
 import com.practica.motor.*;
 import com.practica.rueda.*;
 
-/**
- * Write a description of class Coche here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public abstract class Coche {
-    // instance variables - replace the example below with your own
+
     private String color;
     private int plazas;
     private double pesoAutorizado;
@@ -29,10 +23,7 @@ public abstract class Coche {
     private boolean averiado = false;
     private int tiempoReparacion = 0;
 
-    /**
-     * Constructor for objects of class Coche
-     */
-    public Coche() {
+public Coche() {
 
     }
 

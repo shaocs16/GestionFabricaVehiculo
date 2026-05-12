@@ -6,13 +6,9 @@ import com.practica.planificador.Planificador;
 
 public class AdministradorSistema extends Trabajador {
 
-    /** Número de caídas de luz que ha resuelto este administrador. */
-    private int restauracionesRealizadas;
+private int restauracionesRealizadas;
 
-    /**
-     * Constructor for objects of class AdministradorSistema
-     */
-    public AdministradorSistema(String nombre, String apellidos, String dni,
+public AdministradorSistema(String nombre, String apellidos, String dni,
             String direccion, String numSegSocial,
             double salario, LocalDate fechaIngreso) {
         super(nombre, apellidos, dni, direccion, numSegSocial,

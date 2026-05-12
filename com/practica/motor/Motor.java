@@ -1,24 +1,14 @@
 package com.practica.motor;
 
-/**
- * Write a description of class Motor here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public abstract class Motor {
-    // instance variables - replace the example below with your own
+
     private double cilindrada;
     private int potencia;
     private int numeroCilindros;
 
-    /**
-     * Constructor for objects of class Motor
-     */
-    public Motor() {
-        // initialise instance variables
+public Motor() {
 
-    }
+}
 
     public Motor(double cilindrada, int potencia, int numeroCilindros) {
         this.cilindrada = cilindrada;

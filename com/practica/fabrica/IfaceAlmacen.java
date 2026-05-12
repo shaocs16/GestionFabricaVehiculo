@@ -7,31 +7,24 @@ import com.practica.tapiceria.*;
 import com.practica.personal.*;
 import java.util.*;
 
-/**
- * Write a description of interface IAlmacen here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
- */
-
 public interface IfaceAlmacen
 {
-    
+
     void agregarBiplazaDeportivo(BiplazaDeportivo biplazaDeportivo);
     List<BiplazaDeportivo> getBiplazasDeportivos();
-    
+
     void agregarFurgoneta(Furgoneta furgoneta);
     List<Furgoneta> getFurgonetas();
-    
+
     void agregarTurismo(Turismo turismo);
     List<Turismo> getTurismos();
-    
+
     void agregarMotor(Motor motor);
     List<Motor> getMotores();
-    
+
     void agregarTapiceria(Tapiceria tapiceria);
     List<Tapiceria> getTapicerias();
-    
+
     void agregarRueda(Rueda rueda);
     List<Rueda> getRuedas();
 
@@ -46,11 +39,23 @@ public interface IfaceAlmacen
 
     void agregarOperario(Operario operario);
     List<Operario> getOperarios();
-    
+
     void vaciar();
-    
+
     int getTotalCoches();
 
     List<RegistroMontaje> getRegistrosPorFecha(Date fecha);
     void registrarOperacion(RegistroMontaje registro);
+
+    int getStockMotores();
+
+    int getStockRuedas();
+
+    int getStockTapicerias();
+
+    void disminuirStockMotor();
+
+    void disminuirStockRueda();
+
+    void disminuirStockTapiceria();
 }

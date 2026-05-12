@@ -5,13 +5,9 @@ import com.practica.vehiculo.Coche;
 
 public class Mecanico extends Trabajador {
 
-    /** Número total de reparaciones realizadas por este mecánico. */
-    private int reparacionesRealizadas;
+private int reparacionesRealizadas;
 
-    /**
-     * Constructor for objects of class Mecanico
-     */
-    public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial,
+public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial,
             double salario, LocalDate fechaIngreso) {
         super(nombre, apellidos, dni, direccion, numSegSocial, "Mecánico de cinta", salario, fechaIngreso);
         this.reparacionesRealizadas = 0;
@@ -35,7 +31,7 @@ public class Mecanico extends Trabajador {
         if (esEficiente()) {
             return 1;
         } else {
-            // entre 2 y 5 segundos
+
             return 2 + (int) (Math.random() * 4);
         }
     }

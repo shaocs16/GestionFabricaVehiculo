@@ -4,24 +4,14 @@ import com.practica.vehiculo.*;
 import com.practica.dashboard.*;
 import java.util.ArrayList;
 
-/**
- * Write a description of class CadenaMontaje here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public class CadenaMontaje implements Observable {
-    // instance variables - replace the example below with your own
     private ArrayList<BiplazaDeportivo> cadenaBiplaza;
     private ArrayList<Turismo> cadenaTurismo;
     private ArrayList<Furgoneta> cadenaFurgoneta;
     private ArrayList<Observador> observadores;
 
-    /**
-     * Constructor for objects of class CadenaMontaje
-     */
-    public CadenaMontaje() {
-        // initialise instance variables
+public CadenaMontaje() {
+
         cadenaBiplaza = new ArrayList<BiplazaDeportivo>();
         cadenaTurismo = new ArrayList<Turismo>();
         cadenaFurgoneta = new ArrayList<Furgoneta>();
@@ -53,6 +43,24 @@ public class CadenaMontaje implements Observable {
 
     public ArrayList<Furgoneta> getCadenaFurgoneta() {
         return cadenaFurgoneta;
+    }
+
+    public void limpiar() {
+        cadenaBiplaza.clear();
+        cadenaTurismo.clear();
+        cadenaFurgoneta.clear();
+    }
+
+public int purgarTerminados() {
+        int antesB = cadenaBiplaza.size();
+        int antesT = cadenaTurismo.size();
+        int antesF = cadenaFurgoneta.size();
+        cadenaBiplaza.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
+        cadenaTurismo.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
+        cadenaFurgoneta.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
+        return (antesB - cadenaBiplaza.size())
+             + (antesT - cadenaTurismo.size())
+             + (antesF - cadenaFurgoneta.size());
     }
 
     @Override

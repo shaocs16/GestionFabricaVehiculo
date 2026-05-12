@@ -2,9 +2,6 @@ package com.practica.fabrica;
 
 import java.util.Date;
 
-/**
- * Clase que representa un registro en el historial de montaje o almacén.
- */
 public class RegistroMontaje {
     private Date fecha;
     private String tipoComponente;

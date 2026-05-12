@@ -18,11 +18,12 @@ public class GestorPlanta extends Trabajador {
     }
 
     public void configurarBiplazas(CadenaMontaje cadena, int cantidad,
+            String color, double tara, double pesoMax,
             Motor motor, Tapiceria tapiceria, Rueda[] ruedas) {
         System.out.println("[GESTOR] " + getNombre() + " configura " + cantidad
                 + " Biplaza(s) en la cadena de montaje.");
         for (int i = 0; i < cantidad; i++) {
-            BiplazaDeportivo b = new BiplazaDeportivo("Rojo", 2, 1200.0, 1800.0,
+            BiplazaDeportivo b = new BiplazaDeportivo(color, 2, pesoMax, tara,
                     tapiceria, motor, ruedas);
             b.setEstadoMontaje(EstadoMontaje.CHASIS);
             cadena.agregarBiplaza(b);
@@ -30,11 +31,12 @@ public class GestorPlanta extends Trabajador {
     }
 
     public void configurarTurismos(CadenaMontaje cadena, int cantidad,
+            String color, double tara, double pesoMax,
             Motor motor, Tapiceria tapiceria, Rueda[] ruedas) {
         System.out.println("[GESTOR] " + getNombre() + " configura " + cantidad
                 + " Turismo(s) en la cadena de montaje.");
         for (int i = 0; i < cantidad; i++) {
-            Turismo t = new Turismo("Azul", 5, 1400.0, 2200.0,
+            Turismo t = new Turismo(color, 5, pesoMax, tara,
                     tapiceria, motor, ruedas);
             t.setEstadoMontaje(EstadoMontaje.CHASIS);
             cadena.agregarTurismo(t);
@@ -42,30 +44,27 @@ public class GestorPlanta extends Trabajador {
     }
 
     public void configurarFurgonetas(CadenaMontaje cadena, int cantidad,
+            String color, double tara, double pesoMax,
             Motor motor, Tapiceria tapiceria, Rueda[] ruedas) {
         System.out.println("[GESTOR] " + getNombre() + " configura " + cantidad
                 + " Furgoneta(s) en la cadena de montaje.");
         for (int i = 0; i < cantidad; i++) {
-            Furgoneta f = new Furgoneta("Blanco", 3, 1800.0, 3500.0,
+            Furgoneta f = new Furgoneta(color, 3, pesoMax, tara,
                     tapiceria, motor, ruedas);
             f.setEstadoMontaje(EstadoMontaje.CHASIS);
             cadena.agregarFurgoneta(f);
         }
     }
 
-    public void consultarDashboard(Dashboard dashboard) {
-        System.out.println("[GESTOR] " + getNombre()
-                + " está revisando el dashboard para detectar posibles errores.");
+public String consultarDashboard(Dashboard dashboard) {
+        return "[GESTOR] " + getNombre() + " " + getApellidos()
+                + " revisa el dashboard para detectar incidencias.";
     }
 
-    public void llamarMecanico(Mecanico mecanico, Coche cocheAveriado, Dashboard dashboard) {
-        String msg = "[GESTOR] " + getNombre()
+public String llamarMecanico(Mecanico mecanico, Coche cocheAveriado, Dashboard dashboard) {
+        mecanico.repararCoche(cocheAveriado);
+        return "[GESTOR] " + getNombre() + " " + getApellidos()
                 + " llama al mecánico " + mecanico.getNombre() + " "
                 + mecanico.getApellidos() + " para reparar una avería.";
-        System.out.println(msg);
-        if (dashboard != null) {
-            dashboard.update(msg);
-        }
-        mecanico.repararCoche(cocheAveriado);
     }
 }

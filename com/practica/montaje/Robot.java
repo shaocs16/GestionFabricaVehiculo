@@ -3,9 +3,6 @@ package com.practica.montaje;
 import com.practica.personal.Operario;
 import com.practica.vehiculo.Coche;
 
-/**
- * Representa un Robot en la cadena de montaje controlado por un Operario.
- */
 public class Robot {
     private Operario operario;
     private Coche cocheActual;

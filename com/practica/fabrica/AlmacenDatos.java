@@ -10,43 +10,29 @@ import com.practica.dashboard.Observador;
 
 import java.util.*;
 
-/**
- * Write a description of class Alamcen here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public class AlmacenDatos implements IfaceAlmacen, Observable {
-    // Vehiculo
+
     private ArrayList<BiplazaDeportivo> biplazasDeportivos;
     private ArrayList<Turismo> turismos;
     private ArrayList<Furgoneta> furgonetas;
 
-    // Rueda
-    private ArrayList<Rueda> ruedas;
+private ArrayList<Rueda> ruedas;
 
-    // Motor
-    private ArrayList<Motor> motores;
+private ArrayList<Motor> motores;
 
-    // Tapiceria
-    private ArrayList<Tapiceria> tapicerias;
+private ArrayList<Tapiceria> tapicerias;
 
-    // Personal
-    private ArrayList<AdministradorSistema> administradoresSistema;
+private ArrayList<AdministradorSistema> administradoresSistema;
     private ArrayList<GestorPlanta> gestoresPlanta;
     private ArrayList<Mecanico> mecanicos;
     private ArrayList<Operario> operarios;
 
     private ArrayList<Observador> observadores;
-    
-    // Historial
-    private List<RegistroMontaje> historial;
 
-    /**
-     * Constructor for objects of class Alamcen
-     */
-    public AlmacenDatos() {
-        // initialise instance variables
+private List<RegistroMontaje> historial;
+
+public AlmacenDatos() {
+
         biplazasDeportivos = new ArrayList<>();
         turismos = new ArrayList<>();
         furgonetas = new ArrayList<>();
@@ -64,8 +50,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarBiplazaDeportivo(BiplazaDeportivo biplazaDeportivo) {
         biplazasDeportivos.add(biplazaDeportivo);
-        registrarOperacion(new RegistroMontaje(new Date(), "Biplaza Deportivo", "Añadido al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Biplaza Deportivo");
+        registrarOperacion(new RegistroMontaje(new Date(), "Biplaza Deportivo", "Vehículo terminado"));
+        notifyObservadores("Vehículo terminado: Biplaza Deportivo");
     }
 
     @Override
@@ -76,8 +62,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarFurgoneta(Furgoneta furgoneta) {
         furgonetas.add(furgoneta);
-        registrarOperacion(new RegistroMontaje(new Date(), "Furgoneta", "Añadida al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Furgoneta");
+        registrarOperacion(new RegistroMontaje(new Date(), "Furgoneta", "Vehículo terminado"));
+        notifyObservadores("Vehículo terminado: Furgoneta");
     }
 
     @Override
@@ -88,8 +74,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     @Override
     public void agregarTurismo(Turismo turismo) {
         turismos.add(turismo);
-        registrarOperacion(new RegistroMontaje(new Date(), "Turismo", "Añadido al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Turismo");
+        registrarOperacion(new RegistroMontaje(new Date(), "Turismo", "Vehículo terminado"));
+        notifyObservadores("Vehículo terminado: Turismo");
     }
 
     @Override
@@ -185,6 +171,8 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
         gestoresPlanta.clear();
         mecanicos.clear();
         operarios.clear();
+        historial.clear();
+        observadores.clear();
     }
 
     @Override
@@ -208,14 +196,14 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
             observador.update(message);
         }
     }
-    
+
     @Override
     public List<RegistroMontaje> getRegistrosPorFecha(Date fecha) {
         List<RegistroMontaje> resultado = new ArrayList<>();
         Calendar cal1 = Calendar.getInstance();
         Calendar cal2 = Calendar.getInstance();
         cal1.setTime(fecha);
-        
+
         for (RegistroMontaje registro : historial) {
             cal2.setTime(registro.getFecha());
             if (cal1.get(Calendar.YEAR) == cal2.get(Calendar.YEAR) &&
@@ -230,4 +218,47 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void registrarOperacion(RegistroMontaje registro) {
         historial.add(registro);
     }
+
+    @Override
+    public void disminuirStockMotor() {
+
+        if(!motores.isEmpty()) {
+            motores.remove(0);
+        }
+    }
+
+    @Override
+    public void disminuirStockRueda() {
+
+        if(!ruedas.isEmpty()) {
+            ruedas.remove(0);
+        }
+    }
+
+    @Override
+    public void disminuirStockTapiceria() {
+
+        if(!tapicerias.isEmpty()) {
+            tapicerias.remove(0);
+        }
+    }
+
+    @Override
+    public int getStockMotores() {
+
+        return motores.size();
+    }
+
+    @Override
+    public int getStockRuedas() {
+
+        return ruedas.size();
+    }
+
+    @Override
+    public int getStockTapicerias() {
+
+        return tapicerias.size();
+    }
+
 }

@@ -2,22 +2,13 @@ package com.practica.personal;
 
 import java.time.LocalDate;
 
-/**
- * Write a description of class Trabajador here.
- * 
- * @author (your name)
- * @version (a version number or a date)
- */
 public abstract class Trabajador {
-    // instance variables - replace the example below with your own
+
     private String nombre, apellidos, dni, direccion, numSegSocial, puestoTrabajo;
     private LocalDate fechaIngreso;
     private double salario;
 
-    /**
-     * Constructor for objects of class Trabajador
-     */
-    public Trabajador(String nombre, String apellidos, String dni,
+public Trabajador(String nombre, String apellidos, String dni,
             String direccion, String numSegSocial, String puestoTrabajo,
             double salario, LocalDate fechaIngreso) {
         this.nombre = nombre;

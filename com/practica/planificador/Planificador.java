@@ -1,16 +1,17 @@
 package com.practica.planificador;
 
-import com.practica.dashboard.Observable;
-import com.practica.dashboard.Observador;
-import com.practica.fabrica.SistemaGestion;
-import com.practica.montaje.CadenaMontaje;
+import com.practica.dashboard.*;
+import com.practica.fabrica.*;
+import com.practica.montaje.*;
 import com.practica.vehiculo.*;
-import com.practica.montaje.Robot;
-import com.practica.personal.AdministradorSistema;
-import com.practica.personal.Mecanico;
-import com.practica.personal.Operario;
+import com.practica.motor.*;
+import com.practica.tapiceria.*;
+import com.practica.rueda.*;
+import com.practica.personal.*;
+
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Planificador implements Observable {
 
@@ -20,7 +21,8 @@ public class Planificador implements Observable {
 
     private boolean caidaDeLuz = false;
     private boolean sistemaGestionBloqueado = false;
-    private int tiempoReparacionLuz = 0;
+    private int tiempoReparacionGestion = 0;
+    private int tiempoReparacionCadenas = 0;
     private boolean apagonGenerado = false;
 
     private int averiasBiplaza = 0;
@@ -35,6 +37,7 @@ public class Planificador implements Observable {
 
     private Mecanico[] mecanicos;
     private AdministradorSistema admin;
+    private GestorPlanta gestorPlanta;
 
     public Planificador(CadenaMontaje cadenaMontaje, SistemaGestion sistemaGestion,
             int tipoSimulacion,
@@ -44,30 +47,67 @@ public class Planificador implements Observable {
         this.tipoSimulacion = tipoSimulacion;
         this.mecanicos = mecanicos;
         this.admin = admin;
+
+List<GestorPlanta> gestores = sistemaGestion.consultarGestorPlanta();
+        this.gestorPlanta = gestores.isEmpty() ? null : gestores.get(0);
         this.observadores = new ArrayList<>();
 
         String[] componentes = { "Chasis", "Motor", "Tapicería", "Ruedas" };
+        List<Operario> registrados = sistemaGestion.consultarOperario();
+        int idx = 0;
         for (int i = 0; i < 4; i++) {
-            robotsBiplaza[i] = new Robot(
-                    "Robot Biplaza-" + componentes[i],
-                    new Operario("Juan", "Pérez Blanco" + i, "1234567K",
-                            "Calle Mayor 1", "98" + i, 30000, LocalDate.now()));
-            robotsTurismo[i] = new Robot(
-                    "Robot Turismo-" + componentes[i],
-                    new Operario("Olga", "Jiménez Díaz" + i, "2345678V",
-                            "Gran Vía 5", "45" + i, 30000, LocalDate.now()));
-            robotsFurgoneta[i] = new Robot(
-                    "Robot Furgoneta-" + componentes[i],
-                    new Operario("Pablo", "Domínguez Ramos" + i, "3456789M",
-                            "Av. Valencia 8", "12" + i, 30000, LocalDate.now()));
+            robotsBiplaza[i]   = new Robot("Robot Biplaza"   + componentes[i],
+                obtenerOperario(registrados, idx++, "Biplaza",   i));
+            robotsTurismo[i]   = new Robot("Robot Turismo"   + componentes[i],
+                obtenerOperario(registrados, idx++, "Turismo",   i));
+            robotsFurgoneta[i] = new Robot("Robot Furgoneta" + componentes[i],
+                obtenerOperario(registrados, idx++, "Furgoneta", i));
         }
     }
 
+private Operario obtenerOperario(List<Operario> registrados, int idx,
+                                     String cadena, int posicion) {
+        if (!registrados.isEmpty()) {
+            return registrados.get(idx % registrados.size());
+        }
+        return crearOperarioAleatorio(cadena, posicion);
+    }
+
+    private Operario crearOperarioAleatorio(String nombreCadena, int indice) {
+
+String sufijo = nombreCadena + "_" + indice + "_" + System.nanoTime();
+        String nombre = "Operario_" + nombreCadena + "_" + indice;
+        String apellidos = "Apellido_" + sufijo;
+        String dni = String.format("%08d", Math.abs(sufijo.hashCode()) % 100000000) + "A";
+        String direccion = "Calle " + sufijo;
+        String nss = "NSS_" + sufijo;
+        double salario = 25000;
+        LocalDate fechaIngreso = LocalDate.now();
+
+        Operario op = new Operario(nombre, apellidos, dni, direccion, nss, salario, fechaIngreso);
+
+        boolean esEficiente = Math.random() < 0.5;
+        if (esEficiente) {
+            for (int j = 0; j < 11; j++) {
+                op.registrarMontajeCompletado();
+            }
+        }
+        return op;
+}
+
     public void iniciarSimulacion() {
+
+int purgados = cadenaMontaje.purgarTerminados();
+        if (purgados > 0) {
+            System.out.println("[INFO] Purgados " + purgados
+                + " vehículos ya terminados de la cadena activa.");
+        }
+
         int segundo = 1;
+        int maxTicks = 500;
         boolean montajeTerminado = false;
 
-        while (!montajeTerminado) {
+        while (!montajeTerminado && segundo <= maxTicks) {
             System.out.println("\n--- T=" + segundo + " s ---");
             resolverIncidencias();
             trabajarEnEstaciones();
@@ -80,25 +120,31 @@ public class Planificador implements Observable {
             segundo++;
             montajeTerminado = comprobarFinMontaje();
         }
-        System.out.println("\nSimulación terminada en " + (segundo - 1) + " segundos.");
+        if (segundo > maxTicks) {
+            System.out.println("\n[ABORTADA] Se alcanzó el tope de " + maxTicks
+                + " segundos. Revise mecánicos / stock.");
+        } else {
+            System.out.println("\nSimulación terminada en " + (segundo - 1) + " segundos.");
+        }
         imprimirResumenTrabajadores();
     }
 
     private void trabajarEnEstaciones() {
-        procesarCadenaConRobots(cadenaMontaje.getCadenaBiplaza(), robotsBiplaza, "Biplaza");
-        procesarCadenaConRobots(cadenaMontaje.getCadenaTurismo(), robotsTurismo, "Turismo");
+
+        if (caidaDeLuz) {
+            System.out.println("[APAGÓN] Sistema de gestión bloqueado: "
+                + sistemaGestionBloqueado + ". Cadenas paradas.");
+            return;
+        }
+        procesarCadenaConRobots(cadenaMontaje.getCadenaBiplaza(),   robotsBiplaza,   "Biplaza");
+        procesarCadenaConRobots(cadenaMontaje.getCadenaTurismo(),   robotsTurismo,   "Turismo");
         procesarCadenaConRobots(cadenaMontaje.getCadenaFurgoneta(), robotsFurgoneta, "Furgoneta");
     }
 
     private void procesarCadenaConRobots(ArrayList<? extends Coche> lista,
             Robot[] robots, String nombreCadena) {
-        if (caidaDeLuz) {
-            System.out.println("[APAGÓN] La cadena " + nombreCadena
-                    + " está detenida por falta de luz.");
-            return;
-        }
 
-        int i = 0;
+int i = 0;
         for (Coche c : lista) {
             if (c.getEstadoMontaje() == EstadoMontaje.TERMINADO) {
                 i++;
@@ -106,7 +152,7 @@ public class Planificador implements Observable {
             }
             if (c.isAveriado()) {
                 System.out.println("[AVISO] Coche " + nombreCadena + " #" + (i + 1)
-                        + " averiado — esperando mecánico.");
+                        + " averiado - esperando mecánico.");
                 i++;
                 continue;
             }
@@ -155,10 +201,58 @@ public class Planificador implements Observable {
 
             boolean terminado = robotAsignado.trabajar();
             if (terminado) {
+                String detalleComponente = "";
+                switch (estadoSiguiente) {
+                    case MOTOR: {
+                        Motor m = sistemaGestion.quitarStockMotor();
+                        if (m != null) {
+                            c.setMotor(m);
+                            detalleComponente = " | Motor=" + m.tipoMotor()
+                                + " (" + m.getCilindrada() + "cc, " + m.getPotencia() + "CV)";
+                        }
+                        break;
+                    }
+                    case TAPICERIA: {
+                        Tapiceria t = sistemaGestion.quitarStockTapiceria();
+                        if (t != null) {
+                            c.setTapiceria(t);
+                            detalleComponente = " | Tapicería=" + t.tipoTapiceria()
+                                + " (" + t.getColor() + ")";
+                        }
+                        break;
+                    }
+                    case RUEDAS: {
+                        Rueda[] r = sistemaGestion.quitarStockRuedas();
+                        if (r != null) {
+                            c.setRueda(r);
+                            detalleComponente = " | Ruedas=" + r[0].tipoRueda()
+                                + " (" + r[0].getAncho() + "mm)";
+                        }
+                        break;
+                    }
+                    default:
+                        break;
+                }
+
                 c.setEstadoMontaje(estadoSiguiente);
                 robotAsignado.liberarCoche();
+
+                if (estadoSiguiente == EstadoMontaje.TERMINADO) {
+                    if (c instanceof BiplazaDeportivo) {
+                        sistemaGestion.registrarBiplazaDeportivo((BiplazaDeportivo) c);
+                    } else if (c instanceof Turismo) {
+                        sistemaGestion.registrarTurismo((Turismo) c);
+                    } else if (c instanceof Furgoneta) {
+                        sistemaGestion.registrarFurgoneta((Furgoneta) c);
+                    }
+                }
+
+                sistemaGestion.registrarHistorial(
+                        nombreCadena + " #" + (i + 1),
+                        estadoActual + " -> " + estadoSiguiente + detalleComponente);
+
                 String msg = "[" + nombreCadena + " #" + (i + 1) + "] "
-                        + estadoActual + " → " + estadoSiguiente;
+                        + estadoActual + " -> " + estadoSiguiente + detalleComponente;
                 System.out.println(msg);
                 cadenaMontaje.notifyObservadores(msg);
             }
@@ -166,35 +260,50 @@ public class Planificador implements Observable {
         }
     }
 
-    private void generarEventos(int t) {
-        if (tipoSimulacion == 1) {
-            return;
-        }
+    private void generarEventos(int segundo) {
+        if (tipoSimulacion == 1) return;
 
-        int maxAverias = (tipoSimulacion == 3) ? 3 : 2;
-
-        if (averiasBiplaza < maxAverias && Math.random() < 0.2) {
+        if (averiasBiplaza < 2 && segundo == 1 + averiasBiplaza * 2) {
             if (generarAveriaLista(cadenaMontaje.getCadenaBiplaza(), "Biplaza")) {
                 averiasBiplaza++;
             }
         }
-        if (averiasTurismo < maxAverias && Math.random() < 0.2) {
+        if (averiasTurismo < 2 && segundo == 1 + averiasTurismo * 2) {
             if (generarAveriaLista(cadenaMontaje.getCadenaTurismo(), "Turismo")) {
                 averiasTurismo++;
             }
         }
-        if (averiasFurgoneta < maxAverias && Math.random() < 0.2) {
+        if (averiasFurgoneta < 2 && segundo == 1 + averiasFurgoneta * 2) {
             if (generarAveriaLista(cadenaMontaje.getCadenaFurgoneta(), "Furgoneta")) {
                 averiasFurgoneta++;
             }
         }
 
-        if (tipoSimulacion == 3 && !apagonGenerado && Math.random() < 0.1) {
+        int maxAverias = (tipoSimulacion == 3) ? 3 : 2;
+        if (averiasBiplaza < maxAverias && averiasBiplaza >= 2 && Math.random() < 0.15) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaBiplaza(), "Biplaza")) {
+                averiasBiplaza++;
+            }
+        }
+        if (averiasTurismo < maxAverias && averiasTurismo >= 2 && Math.random() < 0.15) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaTurismo(), "Turismo")) {
+                averiasTurismo++;
+            }
+        }
+        if (averiasFurgoneta < maxAverias && averiasFurgoneta >= 2 && Math.random() < 0.15) {
+            if (generarAveriaLista(cadenaMontaje.getCadenaFurgoneta(), "Furgoneta")) {
+                averiasFurgoneta++;
+            }
+        }
+
+        if (tipoSimulacion == 3 && !apagonGenerado && segundo >= 3) {
             caidaDeLuz = true;
             sistemaGestionBloqueado = true;
-            tiempoReparacionLuz = 3;
+
+tiempoReparacionGestion = 2;
+            tiempoReparacionCadenas = 3;
             apagonGenerado = true;
-            String msg = "La luz se ha caído — El Administrador trabajará para restaurarla.";
+            String msg = "La luz se ha caído - El Administrador trabajará para restaurarla.";
             System.out.println(msg);
             cadenaMontaje.notifyObservadores(msg);
         }
@@ -204,9 +313,20 @@ public class Planificador implements Observable {
         for (Coche c : lista) {
             if (c.getEstadoMontaje() != EstadoMontaje.TERMINADO && !c.isAveriado()) {
                 c.setAveriado(true);
-                c.setTiempoReparacion(-1); // Se asignará dinámicamente cuando el mecánico lo atienda
+                c.setTiempoReparacion(-1);
+
+if (gestorPlanta != null) {
+                    String revision = gestorPlanta.consultarDashboard(null);
+                    System.out.println(revision);
+                    cadenaMontaje.notifyObservadores(revision);
+                }
+
+                String quien = (gestorPlanta != null)
+                        ? "El Gestor de Planta " + gestorPlanta.getNombre() + " "
+                          + gestorPlanta.getApellidos()
+                        : "El Gestor de Planta";
                 String msg = "Se ha detectado avería en cadena " + nombreCadena
-                        + " — El Gestor de Planta llamará al mecánico.";
+                        + " - " + quien + " llamará al mecánico.";
                 System.out.println(msg);
                 cadenaMontaje.notifyObservadores(msg);
                 return true;
@@ -221,12 +341,15 @@ public class Planificador implements Observable {
         }
 
         if (tipoSimulacion == 3 && caidaDeLuz) {
-            tiempoReparacionLuz--;
 
-            if (tiempoReparacionLuz == 1 && admin != null) {
-                admin.restaurarSistemaGestion(this);
+            if (sistemaGestionBloqueado) {
+                tiempoReparacionGestion--;
+                if (tiempoReparacionGestion <= 0 && admin != null) {
+                    admin.restaurarSistemaGestion(this);
+                }
             }
-            if (tiempoReparacionLuz <= 0 && admin != null) {
+            tiempoReparacionCadenas--;
+            if (tiempoReparacionCadenas <= 0 && admin != null) {
                 admin.restaurarCadenasMontaje(this);
             }
         }
@@ -237,10 +360,10 @@ public class Planificador implements Observable {
     }
 
     private void resolverAveriasConMecanico(ArrayList<? extends Coche> lista, int indexMec) {
-        if (mecanicos == null || indexMec >= mecanicos.length) {
+        if (mecanicos == null || mecanicos.length == 0) {
             return;
         }
-        Mecanico mec = mecanicos[indexMec];
+        Mecanico mec = mecanicos[indexMec % mecanicos.length];
 
         for (Coche c : lista) {
             if (c.isAveriado()) {
@@ -251,7 +374,14 @@ public class Planificador implements Observable {
                 c.setTiempoReparacion(c.getTiempoReparacion() - 1);
 
                 if (c.getTiempoReparacion() <= 0) {
-                    mec.repararCoche(c);
+
+if (gestorPlanta != null) {
+                        String aviso = gestorPlanta.llamarMecanico(mec, c, null);
+                        System.out.println(aviso);
+                        cadenaMontaje.notifyObservadores(aviso);
+                    } else {
+                        mec.repararCoche(c);
+                    }
                     String perfil = mec.esEficiente() ? "eficiente" : "estándar";
                     String msg = mec.getNombre() + " " + mec.getApellidos()
                             + " (" + perfil + ") ha completado la reparación ("
@@ -282,17 +412,21 @@ public class Planificador implements Observable {
     }
 
     private void imprimirResumenTrabajadores() {
-        System.out.println("\n── Resumen ──");
-        if (mecanicos != null) {
+        System.out.println("\nRESUMEN");
+
+if (tipoSimulacion >= 2 && mecanicos != null) {
             for (Mecanico m : mecanicos) {
-                System.out.println("  " + m.getNombre() + " " + m.getApellidos()
-                        + " (Mecánico) — reparaciones: " + m.getReparacionesRealizadas());
+                System.out.println(" El mecánico " + m.getNombre() + " " + m.getApellidos()
+                        + " ha hecho " + m.getReparacionesRealizadas() + " reparaciones.");
             }
         }
-        if (admin != null) {
-            System.out.println("  " + admin.getNombre() + " " + admin.getApellidos()
-                    + " (Admin) — restauraciones de luz: "
-                    + admin.getRestauracionesRealizadas());
+        if (tipoSimulacion == 3 && admin != null) {
+            System.out.println(" El administrador " + admin.getNombre() + " " + admin.getApellidos()
+                    + " ha restaurado la luz: "
+                    + admin.getRestauracionesRealizadas() + " veces.");
+        }
+        if (tipoSimulacion == 1) {
+            System.out.println(" Simulación simple completada sin incidencias.");
         }
     }
 
