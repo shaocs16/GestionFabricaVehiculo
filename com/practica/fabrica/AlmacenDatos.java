@@ -10,28 +10,53 @@ import com.practica.dashboard.Observador;
 
 import java.util.*;
 
+/**
+ * Implementación basada en {@link ArrayList} del almacén de datos del sistema.
+ * <p>
+ * Mantiene en memoria todas las entidades del sistema (vehículos terminados,
+ * stock de componentes, plantilla de trabajadores y registro histórico de
+ * operaciones de montaje). Además, actúa como sujeto observable del patrón
+ * Observador para notificar al dashboard cada vez que cambia el estado del
+ * almacén. *
+ * @author Shao Capilla Sanz
+ */
 public class AlmacenDatos implements IfaceAlmacen, Observable {
 
+    /** Stock de Biplazas Deportivos terminados. */
     private ArrayList<BiplazaDeportivo> biplazasDeportivos;
+    /** Stock de Turismos terminados. */
     private ArrayList<Turismo> turismos;
+    /** Stock de Furgonetas terminadas. */
     private ArrayList<Furgoneta> furgonetas;
 
-private ArrayList<Rueda> ruedas;
+    /** Stock de ruedas disponibles para montaje. */
+    private ArrayList<Rueda> ruedas;
 
-private ArrayList<Motor> motores;
+    /** Stock de motores disponibles para montaje. */
+    private ArrayList<Motor> motores;
 
-private ArrayList<Tapiceria> tapicerias;
+    /** Stock de tapicerías disponibles para montaje. */
+    private ArrayList<Tapiceria> tapicerias;
 
-private ArrayList<AdministradorSistema> administradoresSistema;
+    /** Plantilla de administradores del sistema. */
+    private ArrayList<AdministradorSistema> administradoresSistema;
+    /** Plantilla de gestores de planta. */
     private ArrayList<GestorPlanta> gestoresPlanta;
+    /** Plantilla de mecánicos de cinta. */
     private ArrayList<Mecanico> mecanicos;
+    /** Plantilla de operarios. */
     private ArrayList<Operario> operarios;
 
+    /** Observadores registrados para recibir notificaciones del almacén. */
     private ArrayList<Observador> observadores;
 
-private List<RegistroMontaje> historial;
+    /** Historial de operaciones de montaje registradas en el sistema. */
+    private List<RegistroMontaje> historial;
 
-public AlmacenDatos() {
+    /**
+     * Inicializa todas las colecciones del almacén vacías.
+     */
+    public AlmacenDatos() {
 
         biplazasDeportivos = new ArrayList<>();
         turismos = new ArrayList<>();
@@ -47,6 +72,10 @@ public AlmacenDatos() {
         historial = new ArrayList<>();
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarBiplazaDeportivo(BiplazaDeportivo biplazaDeportivo) {
         biplazasDeportivos.add(biplazaDeportivo);
@@ -54,11 +83,16 @@ public AlmacenDatos() {
         notifyObservadores("Vehículo terminado: Biplaza Deportivo");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<BiplazaDeportivo> getBiplazasDeportivos() {
         return biplazasDeportivos;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarFurgoneta(Furgoneta furgoneta) {
         furgonetas.add(furgoneta);
@@ -66,11 +100,16 @@ public AlmacenDatos() {
         notifyObservadores("Vehículo terminado: Furgoneta");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Furgoneta> getFurgonetas() {
         return furgonetas;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarTurismo(Turismo turismo) {
         turismos.add(turismo);
@@ -78,11 +117,16 @@ public AlmacenDatos() {
         notifyObservadores("Vehículo terminado: Turismo");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Turismo> getTurismos() {
         return turismos;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarMotor(Motor motor) {
         motores.add(motor);
@@ -90,11 +134,16 @@ public AlmacenDatos() {
         notifyObservadores("Nuevo componente en almacén: Motor");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Motor> getMotores() {
         return motores;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarTapiceria(Tapiceria tapiceria) {
         tapicerias.add(tapiceria);
@@ -102,11 +151,16 @@ public AlmacenDatos() {
         notifyObservadores("Nuevo componente en almacén: Tapiceria");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Tapiceria> getTapicerias() {
         return tapicerias;
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Registra la operación en el historial y notifica al dashboard.</p>
+     */
     @Override
     public void agregarRueda(Rueda rueda) {
         ruedas.add(rueda);
@@ -114,51 +168,61 @@ public AlmacenDatos() {
         notifyObservadores("Nuevo componente en almacén: Rueda");
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Rueda> getRuedas() {
         return ruedas;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void agregarAdministradorSistema(AdministradorSistema administradorSistema) {
         administradoresSistema.add(administradorSistema);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<AdministradorSistema> getAdministradoresSistema() {
         return administradoresSistema;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void agregarGestorPlanta(GestorPlanta gestorPlanta) {
         gestoresPlanta.add(gestorPlanta);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<GestorPlanta> getGestoresPlanta() {
         return gestoresPlanta;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void agregarMecanico(Mecanico mecanico) {
         mecanicos.add(mecanico);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Mecanico> getMecanicos() {
         return mecanicos;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void agregarOperario(Operario operario) {
         operarios.add(operario);
     }
 
+    /** {@inheritDoc} */
     @Override
     public List<Operario> getOperarios() {
         return operarios;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void vaciar() {
         biplazasDeportivos.clear();
@@ -175,21 +239,25 @@ public AlmacenDatos() {
         observadores.clear();
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getTotalCoches() {
         return biplazasDeportivos.size() + turismos.size() + furgonetas.size();
     }
 
+    /** {@inheritDoc} */
     @Override
     public void addObservador(Observador observador) {
         observadores.add(observador);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void removeObservador(Observador observador) {
         observadores.remove(observador);
     }
 
+    /** {@inheritDoc} */
     @Override
     public void notifyObservadores(String message) {
         for (Observador observador : observadores) {
@@ -197,6 +265,11 @@ public AlmacenDatos() {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * La comparación de fechas se realiza con precisión de día (mismo año y
+     * mismo día del año).     */
     @Override
     public List<RegistroMontaje> getRegistrosPorFecha(Date fecha) {
         List<RegistroMontaje> resultado = new ArrayList<>();
@@ -214,11 +287,16 @@ public AlmacenDatos() {
         return resultado;
     }
 
+    /** {@inheritDoc} */
     @Override
     public void registrarOperacion(RegistroMontaje registro) {
         historial.add(registro);
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Si no hay stock, no realiza ninguna acción.</p>
+     */
     @Override
     public void disminuirStockMotor() {
 
@@ -227,6 +305,10 @@ public AlmacenDatos() {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Si no hay stock, no realiza ninguna acción.</p>
+     */
     @Override
     public void disminuirStockRueda() {
 
@@ -235,6 +317,10 @@ public AlmacenDatos() {
         }
     }
 
+    /**
+     * {@inheritDoc}
+     * <p>Si no hay stock, no realiza ninguna acción.</p>
+     */
     @Override
     public void disminuirStockTapiceria() {
 
@@ -243,18 +329,21 @@ public AlmacenDatos() {
         }
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getStockMotores() {
 
         return motores.size();
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getStockRuedas() {
 
         return ruedas.size();
     }
 
+    /** {@inheritDoc} */
     @Override
     public int getStockTapicerias() {
 

@@ -1,6 +1,7 @@
 #BlueJ class context
 comment0.target=IfaceVisualizarDatos
-comment0.text=\r\n\ Write\ a\ description\ of\ interface\ IfaceVisualizarDatos\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-comment1.params=
-comment1.target=void\ mostrarDatos()
+comment0.text=\r\n\ Interfaz\ que\ define\ el\ subsistema\ de\ visualizaci\u00F3n\ utilizado\ por\ el\r\n\ {@link\ Dashboard}.\r\n\ <p>\r\n\ Su\ existencia\ permite\ desacoplar\ el\ dashboard\ del\ mecanismo\ concreto\ de\r\n\ presentaci\u00F3n,\ de\ modo\ que\ se\ pueda\ cambiar\ f\u00E1cilmente\ entre\ una\ salida\r\n\ por\ consola,\ una\ interfaz\ gr\u00E1fica,\ registro\ en\ fichero,\ etc.,\ sin\r\n\ modificar\ el\ resto\ del\ sistema.\ *\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
+comment1.params=mensaje
+comment1.target=void\ mostrarDatos(java.lang.String)
+comment1.text=\r\n\ Muestra\ el\ mensaje\ indicado\ a\ trav\u00E9s\ del\ medio\ de\ visualizaci\u00F3n\r\n\ concreto.\r\n\r\n\ @param\ mensaje\ texto\ a\ mostrar\r\n
 numComments=2

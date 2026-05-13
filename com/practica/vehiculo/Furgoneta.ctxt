@@ -1,10 +1,13 @@
 #BlueJ class context
 comment0.target=Furgoneta
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Furgoneta\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Veh\u00EDculo\ de\ tipo\ Furgoneta.\r\n\ <p>\r\n\ Subclase\ concreta\ de\ {@link\ Coche}\ que\ representa\ las\ furgonetas\ del\ cat\u00E1logo\r\n\ de\ la\ f\u00E1brica.\ Es\ uno\ de\ los\ tres\ tipos\ de\ veh\u00EDculos\ ensamblados\ en\ las\r\n\ cadenas\ de\ montaje\ de\ la\ factor\u00EDa.\ *\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
 comment1.params=color\ plazas\ pesoAutorizado\ taraVehiculo\ tapiceria\ motor\ rueda
 comment1.target=Furgoneta(java.lang.String,\ int,\ double,\ double,\ com.practica.tapiceria.Tapiceria,\ com.practica.motor.Motor,\ com.practica.rueda.Rueda[])
+comment1.text=\r\n\ Crea\ una\ Furgoneta\ con\ todos\ sus\ atributos\ y\ componentes.\r\n\r\n\ @param\ color\ \ \ \ \ \ \ \ \ \ color\ exterior\ del\ veh\u00EDculo\r\n\ @param\ plazas\ \ \ \ \ \ \ \ \ n\u00FAmero\ de\ plazas\r\n\ @param\ pesoAutorizado\ peso\ m\u00E1ximo\ autorizado\ en\ kg\r\n\ @param\ taraVehiculo\ \ \ tara\ del\ veh\u00EDculo\ en\ kg\r\n\ @param\ tapiceria\ \ \ \ \ \ tapicer\u00EDa\ instalada\r\n\ @param\ motor\ \ \ \ \ \ \ \ \ \ motor\ instalado\r\n\ @param\ rueda\ \ \ \ \ \ \ \ \ \ conjunto\ de\ ruedas\ instaladas\r\n
 comment2.params=
 comment2.target=java.lang.String\ tipoCoche()
+comment2.text=\r\n\ {@inheritDoc}\r\n\r\n\ @return\ la\ cadena\ "Furgoneta"\r\n
 comment3.params=
 comment3.target=java.lang.String\ toString()
+comment3.text=\r\n\ @return\ representaci\u00F3n\ textual\ del\ coche\ incluyendo\ su\ tipo\r\n
 numComments=4

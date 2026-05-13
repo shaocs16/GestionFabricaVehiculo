@@ -1,4 +1,10 @@
 #BlueJ class context
 comment0.target=Dashboard
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Dashboard\ here.\r\n\ \r\n\ @author\ (your\ name)\ \r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
-numComments=1
+comment0.text=\r\n\ Cuadro\ de\ mandos\ (dashboard)\ del\ sistema\ de\ gesti\u00F3n\ de\ la\ f\u00E1brica.\r\n\ <p>\r\n\ Permite\ al\ gestor\ de\ planta\ consultar\ el\ estado\ en\ tiempo\ real\ de\ las\r\n\ cadenas\ de\ montaje\ y\ del\ almac\u00E9n.\ Implementa\ el\ patr\u00F3n\ Observador\r\n\ registr\u00E1ndose\ como\ {@link\ Observador}\ sobre\ las\ entidades\ observables\r\n\ (cadena\ de\ montaje,\ almac\u00E9n,\ planificador)\ para\ recibir\ notificaciones\r\n\ cada\ vez\ que\ se\ produce\ un\ cambio\ relevante.\ *\ <p>\r\n\ El\ subsistema\ concreto\ de\ visualizaci\u00F3n\ est\u00E1\ desacoplado\ a\ trav\u00E9s\ de\ la\r\n\ interfaz\ {@link\ IfaceVisualizarDatos},\ lo\ que\ facilita\ cambiar\ la\ forma\r\n\ de\ mostrar\ los\ datos\ (consola,\ gr\u00E1fica,\ etc.)\ sin\ tocar\ la\ l\u00F3gica.\ *\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
+comment1.params=visualizador
+comment1.target=Dashboard(IfaceVisualizarDatos)
+comment1.text=\r\n\ Crea\ un\ dashboard\ que\ delegar\u00E1\ la\ visualizaci\u00F3n\ en\ el\ subsistema\r\n\ indicado.\r\n\r\n\ @param\ visualizador\ subsistema\ de\ visualizaci\u00F3n\ a\ utilizar\r\n
+comment2.params=message
+comment2.target=void\ update(java.lang.String)
+comment2.text=\r\n\ {@inheritDoc}\r\n\ <p>\r\nReenv\u00EDa\ el\ mensaje\ recibido\ al\ subsistema\ de\ visualizaci\u00F3n\ configurado.
+numComments=3

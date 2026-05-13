@@ -15,13 +15,37 @@ import java.util.List;
 import java.util.Map;
 import java.util.Scanner;
 
+/**
+ * Clase principal de la aplicación de gestión de la fábrica de vehículos.
+ * <p>
+ * Expone un menú textual por consola que permite al usuario acceder a las
+ * funciones de la fábrica: gestión de almacén (componentes y vehículos en
+ * cadena), gestión de trabajadores, consulta de stock, búsqueda de
+ * empleados, simulación del montaje y listados/estadísticas. * <p>
+ * Coordina las instancias singleton de {@link SistemaGestion},
+ * {@link CadenaMontaje} y {@link Dashboard} que se comparten entre todas
+ * las opciones del menú. *
+ * @author Shao Capilla Sanz
+ */
 public class factory_main {
 
+    /** Fachada del sistema de gestión sobre el almacén de datos. */
     public static SistemaGestion sistemaGestion;
+    /** Cadena de montaje activa con los vehículos pendientes. */
     public static CadenaMontaje cadenaMontaje;
+    /** Dashboard observador que muestra los eventos en consola. */
     public static Dashboard dashboard;
+    /** Scanner único para leer entrada del usuario. */
     public static Scanner sc = new Scanner(System.in);
 
+    /**
+     * Punto de entrada del programa. Inicializa el almacén, el sistema de
+     * gestión, la cadena de montaje y el dashboard, conecta el dashboard
+     * como observador del almacén y de la cadena, y entra en el bucle del
+     * menú principal hasta que el usuario elige salir.
+     *
+     * @param args argumentos de línea de comandos (no se utilizan)
+     */
     public static void main(String[] args) {
 
         AlmacenDatos almacen = new AlmacenDatos();
@@ -73,6 +97,14 @@ public class factory_main {
         }
     }
 
+    /**
+     * Comprueba que hay stock suficiente para fabricar un vehículo más,
+     * teniendo en cuenta los vehículos ya pendientes en la cadena. Si no
+     * hay stock muestra un mensaje y devuelve {@code false}.
+     *
+     * @return {@code true} si se puede añadir un vehículo más;
+     *         {@code false} en caso contrario
+     */
     private static boolean comprobarStockParaNuevoVehiculo() {
 
 cadenaMontaje.purgarTerminados();
@@ -86,7 +118,17 @@ cadenaMontaje.purgarTerminados();
         return true;
     }
 
-private static void delegarAGestor(String tipo, String color, int plazas,
+    /**
+     * Delega la creación de un vehículo en el gestor de planta si existe;
+     * en caso contrario añade el vehículo directamente a la cadena.
+     *
+     * @param tipo    tipo de vehículo ("Biplaza", "Turismo" o "Furgoneta")
+     * @param color   color del vehículo
+     * @param plazas  número de plazas
+     * @param pesoMax peso máximo autorizado en kg
+     * @param tara    tara del vehículo en kg
+     */
+    private static void delegarAGestor(String tipo, String color, int plazas,
             double pesoMax, double tara) {
         java.util.List<GestorPlanta> gestores = sistemaGestion.consultarGestorPlanta();
         if (!gestores.isEmpty()) {
@@ -134,6 +176,11 @@ cadenaMontaje.getCadenaTurismo()
         }
     }
 
+    /**
+     * Solicita al usuario un componente del almacén (motor, tapicería o
+     * rueda) y permite modificar sus atributos. Muestra la lista numerada
+     * de los elementos disponibles para que el usuario elija por índice.
+     */
     private static void actualizarComponenteAlmacen() {
         System.out.println("Actualizar componente:");
         System.out.println("  1) Motor   2) Tapicería   3) Rueda");
@@ -210,6 +257,13 @@ cadenaMontaje.getCadenaTurismo()
         }
     }
 
+    /**
+     * Submenú de gestión de almacén. Permite registrar componentes
+     * (motores Gasolina/Eléctrico/Híbrido, tapicerías Tela/Cuero/Alcántara,
+     * ruedas Normal/Deportiva/Todoterreno), añadir vehículos a la cadena
+     * (Biplaza, Turismo, Furgoneta) y actualizar componentes existentes.
+     * Las ruedas se registran siempre en juegos de 4.
+     */
     public static void menuAlmacen() {
         int op = -1;
         while (op != 0) {
@@ -388,6 +442,12 @@ cadenaMontaje.getCadenaTurismo()
         }
     }
 
+    /**
+     * Submenú de gestión de trabajadores. Permite dar de alta operarios,
+     * mecánicos, gestores de planta y administradores de sistema. Todos
+     * comparten los mismos datos básicos (nombre, apellidos, DNI, dirección,
+     * NSS y salario) con fecha de ingreso igual a la actual.
+     */
     public static void menuTrabajadores() {
         int op = -1;
         while (op != 0) {
@@ -446,6 +506,12 @@ cadenaMontaje.getCadenaTurismo()
         }
     }
 
+    /**
+     * Submenú de búsqueda de empleados. Permite buscar operarios por
+     * nombre, listar operarios eficientes (>10 montajes), buscar a un
+     * trabajador por DNI en cualquier perfil y listar todos los operarios
+     * registrados con sus métricas.
+     */
     public static void menuBusqueda() {
         int op = -1;
         while (op != 0) {
@@ -501,6 +567,11 @@ cadenaMontaje.getCadenaTurismo()
         }
     }
 
+    /**
+     * Muestra por consola el stock actual del almacén (motores, tapicerías
+     * y ruedas) y el número de vehículos pendientes en la cadena y ya
+     * ensamblados, separados por tipo.
+     */
     public static void mostrarStock() {
         System.out.println("\nSTOCK DEL ALMACÉN");
         System.out.println("Motores disponibles:    " + sistemaGestion.consultarMotor().size());
@@ -524,6 +595,13 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
         System.out.println("  Furgonetas: " + ensFur);
     }
 
+    /**
+     * Cuenta los coches de la lista que aún no han alcanzado el estado
+     * TERMINADO.
+     *
+     * @param lista lista de coches a evaluar
+     * @return número de coches pendientes
+     */
     private static int contarPendientes(java.util.List<? extends com.practica.vehiculo.Coche> lista) {
         int n = 0;
         for (com.practica.vehiculo.Coche c : lista) {
@@ -534,6 +612,13 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
         return n;
     }
 
+    /**
+     * Submenú de simulación. Permite elegir entre simulación simple,
+     * compleja (con averías y mecánicos) o muy compleja (averías + apagones
+     * con administrador). Antes de iniciar la simulación valida los
+     * requisitos: vehículos en cadena, stock suficiente, presencia de
+     * mecánicos y/o administrador según el nivel.
+     */
     public static void menuSimulacion() {
         int op = -1;
         while (op != 0) {
@@ -606,6 +691,12 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
         }
     }
 
+    /**
+     * Submenú de listados y estadísticas. Permite obtener listados
+     * ordenados de operarios, filtros sobre vehículos terminados por
+     * motor o tapicería, ranking de configuraciones más ensambladas y la
+     * consulta del historial de operaciones por fecha.
+     */
     public static void menuListados() {
         int op = -1;
         while (op != 0) {
