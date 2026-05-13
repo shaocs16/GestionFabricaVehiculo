@@ -509,6 +509,7 @@ public class factory_main {
             System.out.println("2. Listar operarios eficientes");
             System.out.println("3. Buscar trabajador por DNI");
             System.out.println("4. Listar todos los operarios");
+            System.out.println("5. Buscar mecánico por nombre");
             System.out.println("0. Volver al menú principal");
             System.out.print("Opción: ");
             op = sc.nextInt(); sc.nextLine();
@@ -543,6 +544,18 @@ public class factory_main {
                     }
                     break;
                 }
+                case 5:
+                    System.out.print("Nombre del mecánico a buscar: ");
+                    String nombreMecanico = sc.nextLine();
+                    List<Mecanico> mecanicos = sistemaGestion.buscarMecanicosPorNombre(nombreMecanico);
+                    if (mecanicos.isEmpty()) {
+                        System.out.println("No se encontraron mecánicos con ese nombre.");
+                    } else {
+                        for (Mecanico m : mecanicos) {
+                            System.out.println("  - " + m.getNombre() + " " + m.getApellidos());
+                        }
+                    }
+                    break;
                 case 0:
                     System.out.println("Volviendo al menú principal...");
                     break;
@@ -578,6 +591,7 @@ public class factory_main {
         System.out.println("  Biplazas: " + ensBip);
         System.out.println("  Turismos: " + ensTur);
         System.out.println("  Furgonetas: " + ensFur);
+        System.out.println("  TOTAL coches: " + sistemaGestion.consultarTotalCoches());
     }
 
     /**
