@@ -1,22 +1,38 @@
 package com.practica.motor;
 
-
 /**
- * Write a description of class Electrico here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Motor eléctrico montable en los vehículos de la fábrica.
+ *
+ * @author Shao Capilla Sanz
  */
-public class Electrico extends Motor
-{
-    // instance variables - replace the example below with your own
+public class Electrico extends Motor {
 
     /**
-     * Constructor for objects of class Electrico
+     * Crea un motor eléctrico con sus características técnicas.
+     *
+     * @param cilindrada      cilindrada en cc
+     * @param potencia        potencia en CV
+     * @param numeroCilindros número de cilindros
      */
-    public Electrico()
-    {
-        // initialise instance variables
-        
+    public Electrico(double cilindrada, int potencia, int numeroCilindros) {
+        super(cilindrada, potencia, numeroCilindros);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return la cadena "Electrico"
+     */
+    @Override
+    public String tipoMotor() {
+        return "Electrico";
+    }
+
+    /**
+     * @return representación textual del motor incluyendo su tipo
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " Tipo: " + tipoMotor();
     }
 }

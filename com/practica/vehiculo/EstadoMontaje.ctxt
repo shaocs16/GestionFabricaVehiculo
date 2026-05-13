@@ -1,0 +1,4 @@
+#BlueJ class context
+comment0.target=EstadoMontaje
+comment0.text=\r\n\ Estados\ por\ los\ que\ pasa\ un\ veh\u00EDculo\ durante\ el\ proceso\ de\ ensamblaje\ en\ la\r\n\ cadena\ de\ montaje.\r\n\ <p>\r\n\ El\ orden\ de\ los\ valores\ refleja\ la\ secuencia\ natural\ del\ montaje\:\ primero\ se\r\n\ coloca\ el\ chasis,\ despu\u00E9s\ el\ motor,\ a\ continuaci\u00F3n\ la\ tapicer\u00EDa\ y\ finalmente\r\n\ las\ ruedas,\ quedando\ el\ veh\u00EDculo\ en\ estado\ {@link\ \#TERMINADO}\ una\ vez\r\n\ completado.\ *\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
+numComments=1

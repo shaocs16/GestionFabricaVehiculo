@@ -1,20 +1,37 @@
 package com.practica.tapiceria;
 
-
 /**
- * Write a description of class Cuero here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Tapicería de tipo Cuero.
+ *
+ * @author Shao Capilla Sanz
  */
-public class Cuero extends Tapiceria
-{
+public class Cuero extends Tapiceria {
+
     /**
-     * Constructor for objects of class Cuero
+     * Crea una tapicería de cuero.
+     *
+     * @param color           color de la tapicería
+     * @param metrosCuadrados metros cuadrados de tela
      */
-    public Cuero()
-    {
-        // initialise instance variables
-        
+    public Cuero(String color, double metrosCuadrados) {
+        super(color, metrosCuadrados);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return la cadena "Cuero"
+     */
+    @Override
+    public String tipoTapiceria() {
+        return "Cuero";
+    }
+
+    /**
+     * @return representación textual incluyendo el tipo de tapicería
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " Tipo: " + tipoTapiceria();
     }
 }

@@ -1,20 +1,37 @@
 package com.practica.tapiceria;
 
-
 /**
- * Write a description of class Alcantara here.
- * 
- * @author (your name) 
- * @version (a version number or a date)
+ * Tapicería de tipo Alcántara.
+ *
+ * @author Shao Capilla Sanz
  */
-public class Alcantara extends Tapiceria
-{
+public class Alcantara extends Tapiceria {
+
     /**
-     * Constructor for objects of class Alcantara
+     * Crea una tapicería de alcántara.
+     *
+     * @param color           color de la tapicería
+     * @param metrosCuadrados metros cuadrados de tela
      */
-    public Alcantara()
-    {
-        // initialise instance variables
-        
+    public Alcantara(String color, double metrosCuadrados) {
+        super(color, metrosCuadrados);
+    }
+
+    /**
+     * {@inheritDoc}
+     *
+     * @return la cadena "Alcantara"
+     */
+    @Override
+    public String tipoTapiceria() {
+        return "Alcantara";
+    }
+
+    /**
+     * @return representación textual incluyendo el tipo de tapicería
+     */
+    @Override
+    public String toString() {
+        return super.toString() + " Tipo: " + tipoTapiceria();
     }
 }
