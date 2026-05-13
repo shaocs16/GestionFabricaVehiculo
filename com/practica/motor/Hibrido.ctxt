@@ -1,11 +1,13 @@
 #BlueJ class context
 comment0.target=Hibrido
-comment0.text=\r\n\ Write\ a\ description\ of\ class\ Hibrido\ here.\r\n\ \r\n\ @author\ (your\ name)\r\n\ @version\ (a\ version\ number\ or\ a\ date)\r\n
+comment0.text=\r\n\ Motor\ h\u00EDbrido\ montable\ en\ los\ veh\u00EDculos\ de\ la\ f\u00E1brica.\r\n\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
 comment1.params=cilindrada\ potencia\ numeroCilindros
 comment1.target=Hibrido(double,\ int,\ int)
-comment1.text=\r\n\ Constructor\ for\ objects\ of\ class\ Hibrido\r\n
+comment1.text=\r\n\ Crea\ un\ motor\ h\u00EDbrido\ con\ sus\ caracter\u00EDsticas\ t\u00E9cnicas.\r\n\r\n\ @param\ cilindrada\ \ \ \ \ \ cilindrada\ en\ cc\r\n\ @param\ potencia\ \ \ \ \ \ \ \ potencia\ en\ CV\r\n\ @param\ numeroCilindros\ n\u00FAmero\ de\ cilindros\r\n
 comment2.params=
 comment2.target=java.lang.String\ tipoMotor()
+comment2.text=\r\n\ {@inheritDoc}\r\n\r\n\ @return\ la\ cadena\ "Hibrido"\r\n
 comment3.params=
 comment3.target=java.lang.String\ toString()
+comment3.text=\r\n\ @return\ representaci\u00F3n\ textual\ del\ motor\ incluyendo\ su\ tipo\r\n
 numComments=4
