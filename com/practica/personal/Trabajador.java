@@ -32,9 +32,7 @@ public abstract class Trabajador {
      * @param salario       salario bruto
      * @param fechaIngreso  fecha de ingreso en la empresa
      */
-    public Trabajador(String nombre, String apellidos, String dni,
-            String direccion, String numSegSocial, String puestoTrabajo,
-            double salario, LocalDate fechaIngreso) {
+    public Trabajador(String nombre, String apellidos, String dni, String direccion, String numSegSocial, String puestoTrabajo, double salario, LocalDate fechaIngreso) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;

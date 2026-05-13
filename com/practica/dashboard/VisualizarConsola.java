@@ -15,7 +15,8 @@ public class VisualizarConsola implements IfaceVisualizarDatos {
      * destacarlo del resto de salida del programa.     */
     public void mostrarDatos(String mensaje) {
         System.out.println("-------------------------------------------------");
-        System.out.println("[DASHBOARD] " + mensaje);
+        System.out.println("[NOTIFICACIÓN DASHBOARD]");
+        System.out.println("Mensaje: " + mensaje);
         System.out.println("-------------------------------------------------");
     }
 }

@@ -25,8 +25,7 @@ public class Turismo extends Coche {
      * @param motor          motor instalado
      * @param rueda          conjunto de ruedas instaladas
      */
-    public Turismo(String color, int plazas, double pesoAutorizado, double taraVehiculo,
-            Tapiceria tapiceria, Motor motor, Rueda[] rueda) {
+    public Turismo(String color, int plazas, double pesoAutorizado, double taraVehiculo, Tapiceria tapiceria, Motor motor, Rueda[] rueda) {
         super(color, plazas, pesoAutorizado, taraVehiculo, tapiceria, motor, rueda);
     }
 

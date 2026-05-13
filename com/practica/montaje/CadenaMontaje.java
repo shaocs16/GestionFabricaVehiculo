@@ -113,9 +113,7 @@ public class CadenaMontaje implements Observable {
         cadenaBiplaza.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
         cadenaTurismo.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
         cadenaFurgoneta.removeIf(c -> c.getEstadoMontaje() == EstadoMontaje.TERMINADO);
-        return (antesB - cadenaBiplaza.size())
-             + (antesT - cadenaTurismo.size())
-             + (antesF - cadenaFurgoneta.size());
+        return (antesB - cadenaBiplaza.size()) + (antesT - cadenaTurismo.size()) + (antesF - cadenaFurgoneta.size());
     }
 
     /**

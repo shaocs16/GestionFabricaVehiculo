@@ -32,11 +32,8 @@ public class AdministradorSistema extends Trabajador {
      * @param salario      salario bruto
      * @param fechaIngreso fecha de ingreso en la empresa
      */
-    public AdministradorSistema(String nombre, String apellidos, String dni,
-            String direccion, String numSegSocial,
-            double salario, LocalDate fechaIngreso) {
-        super(nombre, apellidos, dni, direccion, numSegSocial,
-                "Administrador del sistema", salario, fechaIngreso);
+    public AdministradorSistema(String nombre, String apellidos, String dni, String direccion, String numSegSocial, double salario, LocalDate fechaIngreso) {
+        super(nombre, apellidos, dni, direccion, numSegSocial, "Administrador del sistema", salario, fechaIngreso);
         this.restauracionesRealizadas = 0;
     }
 
@@ -51,9 +48,7 @@ public class AdministradorSistema extends Trabajador {
         if (planificador.isSistemaGestionBloqueado()) {
             planificador.setSistemaGestionBloqueado(false);
             restauracionesRealizadas++;
-            String msg = "El administrador " + getNombre() + " " + getApellidos()
-                    + " ha restaurado el sistema de gestión de la fábrica.";
-            System.out.println(msg);
+            String msg = "El administrador " + getNombre() + " " + getApellidos() + " ha restaurado el sistema de gestión de la fábrica.";
             planificador.notifyObservadores(msg);
         }
     }
@@ -67,9 +62,7 @@ public class AdministradorSistema extends Trabajador {
     public void restaurarCadenasMontaje(Planificador planificador) {
         if (planificador.isCaidaDeLuz()) {
             planificador.setCaidaDeLuz(false);
-            String msg = "El administrador " + getNombre() + " " + getApellidos()
-                    + " ha reanudado las cadenas de montaje.";
-            System.out.println(msg);
+            String msg = "El administrador " + getNombre() + " " + getApellidos() + " ha reanudado las cadenas de montaje.";
             planificador.notifyObservadores(msg);
         }
     }

@@ -120,7 +120,6 @@ public abstract class Rueda {
      */
     @Override
     public String toString() {
-        return "Rueda [ancho=" + ancho + ", pulgadasLlanta=" + pulgadasLlanta + ", indiceCarga=" + indiceCarga
-                + ", codigoVelocidad=" + codigoVelocidad + "]";
+        return "Rueda [ancho=" + ancho + ", pulgadasLlanta=" + pulgadasLlanta + ", indiceCarga=" + indiceCarga + ", codigoVelocidad=" + codigoVelocidad + "]";
     }
 }

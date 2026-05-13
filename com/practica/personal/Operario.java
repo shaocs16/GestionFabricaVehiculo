@@ -33,9 +33,7 @@ public class Operario extends Trabajador {
      * @param salario      salario bruto
      * @param fechaIngreso fecha de ingreso en la empresa
      */
-    public Operario(String nombre, String apellidos, String dni,
-            String direccion, String numSegSocial,
-            double salario, LocalDate fechaIngreso) {
+    public Operario(String nombre, String apellidos, String dni, String direccion, String numSegSocial, double salario, LocalDate fechaIngreso) {
         super(nombre, apellidos, dni, direccion, numSegSocial, "Operario", salario, fechaIngreso);
         this.montajesRealizados = 0;
     }

@@ -62,8 +62,7 @@ public abstract class Coche {
      * @param motor          motor instalado
      * @param rueda          array con las cuatro ruedas del vehículo
      */
-    public Coche(String color, int plazas, double pesoAutorizado, double taraVehiculo,
-            Tapiceria tapiceria, Motor motor, Rueda[] rueda) {
+    public Coche(String color, int plazas, double pesoAutorizado, double taraVehiculo, Tapiceria tapiceria, Motor motor, Rueda[] rueda) {
         this.color = color;
         this.plazas = plazas;
         this.pesoAutorizado = pesoAutorizado;
@@ -249,8 +248,6 @@ public abstract class Coche {
      */
     @Override
     public String toString() {
-        return "Coche [color=" + color + ", plazas=" + plazas + ", pesoAutorizado=" + pesoAutorizado + ", taraVehiculo="
-                + taraVehiculo + ", tapiceria=" + tapiceria + ", motor=" + motor + ", rueda=" + Arrays.toString(rueda)
-                + "]";
+        return "Coche [color=" + color + ", plazas=" + plazas + ", pesoAutorizado=" + pesoAutorizado + ", taraVehiculo=" + taraVehiculo + ", tapiceria=" + tapiceria + ", motor=" + motor + ", rueda=" + Arrays.toString(rueda) + "]";
     }
 }

@@ -58,13 +58,14 @@ public class factory_main {
 
         int opcion = -1;
         while (opcion != 0) {
-            System.out.println("\nGESTIÓN FÁBRICA DE VEHÍCULOS: SELECCIONE UNA OPCIÓN");
+            System.out.println("\nGESTIÓN FÁBRICA DE VEHÍCULOS");
             System.out.println("1. Gestión de Almacén");
             System.out.println("2. Gestión de Trabajadores");
             System.out.println("3. Consultar stock");
             System.out.println("4. Buscar empleados");
             System.out.println("5. Iniciar Simulación");
             System.out.println("6. Listados y estadísticas");
+            System.out.println("7. Reiniciar Sistema");
             System.out.println("0. Salir");
             System.out.print("Elige una opción: ");
             opcion = sc.nextInt();
@@ -88,6 +89,10 @@ public class factory_main {
                 case 6:
                     menuListados();
                     break;
+                case 7:
+                    sistemaGestion.resetSistema();
+                    System.out.println("Sistema reiniciado correctamente.");
+                    break;
                 case 0:
                     System.out.println("Saliendo...");
                     break;
@@ -106,11 +111,8 @@ public class factory_main {
      *         {@code false} en caso contrario
      */
     private static boolean comprobarStockParaNuevoVehiculo() {
-
-cadenaMontaje.purgarTerminados();
-        int yaEnCadena = cadenaMontaje.getCadenaBiplaza().size()
-                       + cadenaMontaje.getCadenaTurismo().size()
-                       + cadenaMontaje.getCadenaFurgoneta().size();
+        cadenaMontaje.purgarTerminados();
+        int yaEnCadena = cadenaMontaje.getCadenaBiplaza().size() + cadenaMontaje.getCadenaTurismo().size() + cadenaMontaje.getCadenaFurgoneta().size();
         if (!sistemaGestion.hayStockSuficiente(yaEnCadena + 1)) {
             System.out.println("No se añade el vehículo: stock insuficiente.");
             return false;
@@ -130,25 +132,21 @@ cadenaMontaje.purgarTerminados();
      */
     private static void delegarAGestor(String tipo, String color, int plazas,
             double pesoMax, double tara) {
-        java.util.List<GestorPlanta> gestores = sistemaGestion.consultarGestorPlanta();
+        List<GestorPlanta> gestores = sistemaGestion.consultarGestorPlanta();
         if (!gestores.isEmpty()) {
             GestorPlanta g = gestores.get(0);
             switch (tipo) {
                 case "Biplaza":
-                    g.configurarBiplazas(cadenaMontaje, 1, color, tara, pesoMax,
-                        null, null, null);
+                    g.configurarBiplazas(cadenaMontaje, 1, color, tara, pesoMax, null, null, null);
                     break;
                 case "Turismo":
-                    g.configurarTurismos(cadenaMontaje, 1, color, tara, pesoMax,
-                        null, null, null);
-
-cadenaMontaje.getCadenaTurismo()
+                    g.configurarTurismos(cadenaMontaje, 1, color, tara, pesoMax, null, null, null);
+                    cadenaMontaje.getCadenaTurismo()
                         .get(cadenaMontaje.getCadenaTurismo().size() - 1)
                         .setPlazas(plazas);
                     break;
                 case "Furgoneta":
-                    g.configurarFurgonetas(cadenaMontaje, 1, color, tara, pesoMax,
-                        null, null, null);
+                    g.configurarFurgonetas(cadenaMontaje, 1, color, tara, pesoMax, null, null, null);
                     cadenaMontaje.getCadenaFurgoneta()
                         .get(cadenaMontaje.getCadenaFurgoneta().size() - 1)
                         .setPlazas(plazas);
@@ -158,18 +156,15 @@ cadenaMontaje.getCadenaTurismo()
 
             switch (tipo) {
                 case "Biplaza":
-                    cadenaMontaje.agregarBiplaza(new BiplazaDeportivo(color, plazas,
-                        pesoMax, tara, null, null, null));
+                    cadenaMontaje.agregarBiplaza(new BiplazaDeportivo(color, plazas, pesoMax, tara, null, null, null));
                     System.out.println("Biplaza Deportivo añadido a la cadena.");
                     break;
                 case "Turismo":
-                    cadenaMontaje.agregarTurismo(new Turismo(color, plazas,
-                        pesoMax, tara, null, null, null));
+                    cadenaMontaje.agregarTurismo(new Turismo(color, plazas, pesoMax, tara, null, null, null));
                     System.out.println("Turismo añadido a la cadena.");
                     break;
                 case "Furgoneta":
-                    cadenaMontaje.agregarFurgoneta(new Furgoneta(color, plazas,
-                        pesoMax, tara, null, null, null));
+                    cadenaMontaje.agregarFurgoneta(new Furgoneta(color, plazas, pesoMax, tara, null, null, null));
                     System.out.println("Furgoneta añadida a la cadena.");
                     break;
             }
@@ -212,27 +207,27 @@ cadenaMontaje.getCadenaTurismo()
         }
 
         System.out.print("Índice a actualizar: ");
-        int idx = sc.nextInt();
+        int indice = sc.nextInt();
 
-        if (idx < 0 || idx >= lista.size()) {
+        if (indice < 0 || indice >= lista.size()) {
             System.out.println("Índice fuera de rango.");
             return;
         }
 
         switch (tipo) {
             case 1: {
-                Motor m = (Motor) lista.get(idx);
+                Motor m = (Motor) lista.get(indice);
                 System.out.print("Nueva cilindrada: ");
                 m.setCilindrada(sc.nextDouble());
                 System.out.print("Nueva potencia: ");
                 m.setPotencia(sc.nextInt());
-                System.out.print("Nº cilindros: ");
+                System.out.print("Nuevo número cilindros: ");
                 m.setNumeroCilindros(sc.nextInt());
                 System.out.println("Motor actualizado.");
                 break;
             }
             case 2: {
-                Tapiceria t = (Tapiceria) lista.get(idx);
+                Tapiceria t = (Tapiceria) lista.get(indice);
                 sc.nextLine();
                 System.out.print("Nuevo color: ");
                 t.setColor(sc.nextLine());
@@ -242,14 +237,14 @@ cadenaMontaje.getCadenaTurismo()
                 break;
             }
             case 3: {
-                Rueda r = (Rueda) lista.get(idx);
+                Rueda r = (Rueda) lista.get(indice);
                 System.out.print("Nuevo ancho: ");
                 r.setAncho(sc.nextInt());
-                System.out.print("Pulgadas llanta: ");
+                System.out.print("Nueva pulgadas llanta: ");
                 r.setPulgadasLlanta(sc.nextInt());
-                System.out.print("Índice carga: ");
+                System.out.print("Nuevo índice carga: ");
                 r.setIndiceCarga(sc.nextInt());
-                System.out.print("Cód. velocidad: ");
+                System.out.print("Nuevo código velocidad: ");
                 r.setVelocidad(sc.nextInt());
                 System.out.println("Rueda actualizada.");
                 break;
@@ -353,8 +348,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Codigo Velocial: ");
                     int codVelNormal = sc.nextInt();
                     for (int i = 0; i < 4; i++) {
-                        sistemaGestion.registrarRueda(new Normal(aNormal, pLlantaNormal,
-                            indiCargaNormal,codVelNormal));
+                        sistemaGestion.registrarRueda(new Normal(aNormal, pLlantaNormal, indiCargaNormal,codVelNormal));
                     }
                     System.out.println("4 Ruedas Normales registradas.");
                     break;
@@ -368,8 +362,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Codigo Velocial: ");
                     int codVelDeportivo = sc.nextInt();
                     for (int i = 0; i < 4; i++) {
-                        sistemaGestion.registrarRueda(new Deportivo(aDeportivo, pLlantaDeportivo,
-                            indiCargaDeportivo,codVelDeportivo));
+                        sistemaGestion.registrarRueda(new Deportivo(aDeportivo, pLlantaDeportivo, indiCargaDeportivo,codVelDeportivo));
                     }
                     System.out.println("4 Ruedas Deportivas registradas.");
                     break;
@@ -383,8 +376,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Codigo Velocial: ");
                     int codVelTodoterreno = sc.nextInt();
                     for (int i = 0; i < 4; i++) {
-                        sistemaGestion.registrarRueda(new Todoterreno(aTodoterreno, pLlantaTodoterreno,
-                            indiCargaTodoterreno,codVelTodoterreno));
+                        sistemaGestion.registrarRueda(new Todoterreno(aTodoterreno, pLlantaTodoterreno, indiCargaTodoterreno,codVelTodoterreno));
                     }
                     System.out.println("4 Ruedas Todoterrenos registradas.");
                     break;
@@ -399,8 +391,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Tara Vehiculo: ");
                     double taraVehiBiplaza = sc.nextDouble();
                     if (!comprobarStockParaNuevoVehiculo()) break;
-                    delegarAGestor("Biplaza", colorBiplaza, plazasBiplaza,
-                        pesoAutorBiplaza, taraVehiBiplaza);
+                    delegarAGestor("Biplaza", colorBiplaza, plazasBiplaza, pesoAutorBiplaza, taraVehiBiplaza);
                     break;
                 case 11:
                     System.out.print("Color: ");
@@ -413,8 +404,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Tara Vehiculo: ");
                     double taraVehiTurismo = sc.nextDouble();
                     if (!comprobarStockParaNuevoVehiculo()) break;
-                    delegarAGestor("Turismo", colorTurismo, plazasTurismo,
-                        pesoAutorTurismo, taraVehiTurismo);
+                    delegarAGestor("Turismo", colorTurismo, plazasTurismo, pesoAutorTurismo, taraVehiTurismo);
                     break;
                 case 12:
                     System.out.print("Color: ");
@@ -427,8 +417,7 @@ cadenaMontaje.getCadenaTurismo()
                     System.out.print("Tara Vehiculo: ");
                     double taraVehiFurgoneta = sc.nextDouble();
                     if (!comprobarStockParaNuevoVehiculo()) break;
-                    delegarAGestor("Furgoneta", colorFurgoneta, plazasFurgoneta,
-                        pesoAutorFurgoneta, taraVehiFurgoneta);
+                    delegarAGestor("Furgoneta", colorFurgoneta, plazasFurgoneta, pesoAutorFurgoneta, taraVehiFurgoneta);
                     break;
                 case 13:
                     actualizarComponenteAlmacen();
@@ -533,8 +522,7 @@ cadenaMontaje.getCadenaTurismo()
                     break;
                 case 2:
                     for (Operario o : sistemaGestion.buscarOperariosEficientes()) {
-                        System.out.println("  - " + o.getNombre() + " (montajes: "
-                            + o.getMontajesRealizados() + ")");
+                        System.out.println("  - " + o.getNombre() + " (montajes: " + o.getMontajesRealizados() + ")");
                     }
                     break;
                 case 3:
@@ -550,10 +538,7 @@ cadenaMontaje.getCadenaTurismo()
                     } else {
                         for (Operario o : todos) {
                             String perfil = o.esEficiente() ? "eficiente" : "estándar";
-                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos()
-                                    + " | DNI: " + o.getDni()
-                                    + " | montajes: " + o.getMontajesRealizados()
-                                    + " (" + perfil + ")");
+                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " | DNI: " + o.getDni() + " | montajes: " + o.getMontajesRealizados() + " (" + perfil + ")");
                         }
                     }
                     break;
@@ -578,7 +563,7 @@ cadenaMontaje.getCadenaTurismo()
         System.out.println("Tapicerías disponibles: " + sistemaGestion.consultarTapiceria().size());
         System.out.println("Ruedas disponibles:     " + sistemaGestion.consultarRueda().size());
 
-int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
+        int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
         int pendTur = contarPendientes(cadenaMontaje.getCadenaTurismo());
         int pendFur = contarPendientes(cadenaMontaje.getCadenaFurgoneta());
         int ensBip  = sistemaGestion.consultarBiplazasDeportivos().size();
@@ -586,12 +571,12 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
         int ensFur  = sistemaGestion.consultarFurgoneta().size();
 
         System.out.println("\nVEHÍCULOS EN CADENA (pendientes de ensamblar)");
-        System.out.println("  Biplazas:   " + pendBip);
-        System.out.println("  Turismos:   " + pendTur);
+        System.out.println("  Biplazas: " + pendBip);
+        System.out.println("  Turismos: " + pendTur);
         System.out.println("  Furgonetas: " + pendFur);
         System.out.println("VEHÍCULOS ENSAMBLADOS (histórico)");
-        System.out.println("  Biplazas:   " + ensBip);
-        System.out.println("  Turismos:   " + ensTur);
+        System.out.println("  Biplazas: " + ensBip);
+        System.out.println("  Turismos: " + ensTur);
         System.out.println("  Furgonetas: " + ensFur);
     }
 
@@ -641,9 +626,7 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
             }
 
             cadenaMontaje.purgarTerminados();
-            int totalCoches = cadenaMontaje.getCadenaBiplaza().size()
-                    + cadenaMontaje.getCadenaTurismo().size()
-                    + cadenaMontaje.getCadenaFurgoneta().size();
+            int totalCoches = cadenaMontaje.getCadenaBiplaza().size() + cadenaMontaje.getCadenaTurismo().size() + cadenaMontaje.getCadenaFurgoneta().size();
             if (totalCoches == 0) {
                 System.out.println("No hay vehículos en la cadena. Añade vehículos desde Gestión de Almacén (opciones 10-12).");
                 break;
@@ -664,8 +647,7 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
                     if (m.esEficiente()) hayEficiente = true; else hayEstandar = true;
                 }
                 if (!hayEficiente && hayEstandar) {
-                    System.out.println("[AVISO] Aún no hay mecánicos eficientes (>20 reparaciones). "
-                            + "La simulación continuará sólo con mecánicos estándar.");
+                    System.out.println("[AVISO] Aún no hay mecánicos eficientes (>20 reparaciones). " + "La simulación continuará sólo con mecánicos estándar.");
                 }
             }
             if (op == 3 && sistemaGestion.consultarAdministradorSistema().isEmpty()) {
@@ -676,14 +658,11 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
             Mecanico[] mecs = (op == 1) ? new Mecanico[0]
                 : sistemaGestion.consultarMecanico().toArray(new Mecanico[0]);
 
-            AdministradorSistema admin = (op == 3 && !sistemaGestion.consultarAdministradorSistema().isEmpty())
-                ? sistemaGestion.consultarAdministradorSistema().get(0)
-                : null;
+            AdministradorSistema admin = (op == 3 && !sistemaGestion.consultarAdministradorSistema().isEmpty()) ? sistemaGestion.consultarAdministradorSistema().get(0) : null;
 
             System.out.println("Iniciando simulación con " + totalCoches + " vehículos...");
 
-            Planificador planificador = new Planificador(
-                cadenaMontaje, sistemaGestion, op, mecs, admin);
+            Planificador planificador = new Planificador(cadenaMontaje, sistemaGestion, op, mecs, admin);
             planificador.addObservador(dashboard);
 
             planificador.iniciarSimulacion();
@@ -719,8 +698,7 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
                         System.out.println("No hay operarios registrados.");
                     } else {
                         for (Operario o : lista) {
-                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos()
-                                    + " (montajes: " + o.getMontajesRealizados() + ")");
+                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " (montajes: " + o.getMontajesRealizados() + ")");
                         }
                     }
                     break;
@@ -733,8 +711,7 @@ int pendBip = contarPendientes(cadenaMontaje.getCadenaBiplaza());
                         System.out.println("Ningún operario alcanza ese umbral.");
                     } else {
                         for (Operario o : lista) {
-                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos()
-                                    + " (montajes: " + o.getMontajesRealizados() + ")");
+                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " (montajes: " + o.getMontajesRealizados() + ")");
                         }
                     }
                     break;

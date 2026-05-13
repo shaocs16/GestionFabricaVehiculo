@@ -99,7 +99,6 @@ public abstract class Motor {
      */
     @Override
     public String toString() {
-        return "Motor [cilindrada=" + cilindrada + ", potencia=" + potencia + ", numeroCilindros=" + numeroCilindros
-                + "]";
+        return "Motor [cilindrada=" + cilindrada + ", potencia=" + potencia + ", numeroCilindros=" + numeroCilindros + "]";
     }
 }

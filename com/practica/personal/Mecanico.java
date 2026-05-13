@@ -33,8 +33,7 @@ public class Mecanico extends Trabajador {
      * @param salario      salario bruto
      * @param fechaIngreso fecha de ingreso en la empresa
      */
-    public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial,
-            double salario, LocalDate fechaIngreso) {
+    public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial, double salario, LocalDate fechaIngreso) {
         super(nombre, apellidos, dni, direccion, numSegSocial, "Mecánico de cinta", salario, fechaIngreso);
         this.reparacionesRealizadas = 0;
     }
@@ -51,8 +50,7 @@ public class Mecanico extends Trabajador {
             c.setTiempoReparacion(0);
             c.setAveriado(false);
             reparacionesRealizadas++;
-            System.out.println("El mecánico " + getNombre() + " " + getApellidos()
-                    + " ha reparado la avería de un coche.");
+            System.out.println("El mecánico " + getNombre() + " " + getApellidos() + " ha reparado la avería de un coche.");
         }
     }
 
@@ -76,7 +74,6 @@ public class Mecanico extends Trabajador {
         if (esEficiente()) {
             return 1;
         } else {
-
             return 2 + (int) (Math.random() * 4);
         }
     }
