@@ -113,8 +113,9 @@ public class factory_main {
     private static boolean comprobarStockParaNuevoVehiculo() {
         cadenaMontaje.purgarTerminados();
         int yaEnCadena = cadenaMontaje.getCadenaBiplaza().size() + cadenaMontaje.getCadenaTurismo().size() + cadenaMontaje.getCadenaFurgoneta().size();
-        if (!sistemaGestion.hayStockSuficiente(yaEnCadena + 1)) {
-            System.out.println("No se añade el vehículo: stock insuficiente.");
+        ComprobacionStock res = sistemaGestion.comprobarStock(yaEnCadena + 1);
+        if (res != ComprobacionStock.OK) {
+            System.out.println("No se añade el vehículo: stock insuficiente de " + res);
             return false;
         }
         return true;
@@ -646,8 +647,9 @@ public class factory_main {
                 break;
             }
 
-            if (!sistemaGestion.hayStockSuficiente(totalCoches)) {
-                System.out.println("Simulación cancelada: stock insuficiente para " + totalCoches + " vehículos.");
+            ComprobacionStock res = sistemaGestion.comprobarStock(totalCoches);
+            if (res != ComprobacionStock.OK) {
+                System.out.println("Simulación cancelada: stock insuficiente de " + res);
                 break;
             }
 
