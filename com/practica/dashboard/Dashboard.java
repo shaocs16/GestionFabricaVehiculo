@@ -37,4 +37,25 @@ public class Dashboard implements Observador {
         visualizador.mostrarDatos(message);
     }
 
+
+    /**
+     * Muestra un mensaje de confirmación de una acción realizada por el usuario,
+     * delegando la visualización en el subsistema configurado.
+     *
+     * @param message texto de confirmación a mostrar
+     */
+    public void mostrarConfirmacion(String message) {
+        visualizador.confirmacionDatos(message);
+    }
+
+    /**
+     * Muestra un mensaje de error al usuario, delegando la visualización
+     * en el subsistema configurado.
+     *
+     * @param message texto del error a mostrar
+     */
+    public void mostrarError(String message) {
+        visualizador.errorDashboard(message);
+    }
+
 }

@@ -281,18 +281,18 @@ public class SistemaGestion
      */
     public String buscarTrabajadorPorDni(String dni) {
         for (Operario op : almacen.getOperarios()) {
-        if (op.getDni().equals(dni)) return "Operario: " + op.getNombre() + " " + op.getApellidos();
-    }
-    for (Mecanico mec : almacen.getMecanicos()) {
-        if (mec.getDni().equals(dni)) return "Mecánico: " + mec.getNombre() + " " + mec.getApellidos();
-    }
-    for (GestorPlanta gp : almacen.getGestoresPlanta()) {
-        if (gp.getDni().equals(dni)) return "Gestor: " + gp.getNombre() + " " + gp.getApellidos();
-    }
-    for (AdministradorSistema as : almacen.getAdministradoresSistema()) {
-        if (as.getDni().equals(dni)) return "Administrador: " + as.getNombre() + " " + as.getApellidos();
-    }
-    return "No encontrado";
+            if (op.getDni().equals(dni)) return "Operario: " + op.getNombre() + " " + op.getApellidos();
+        }
+        for (Mecanico mec : almacen.getMecanicos()) {
+            if (mec.getDni().equals(dni)) return "Mecánico: " + mec.getNombre() + " " + mec.getApellidos();
+        }
+        for (GestorPlanta gp : almacen.getGestoresPlanta()) {
+            if (gp.getDni().equals(dni)) return "Gestor: " + gp.getNombre() + " " + gp.getApellidos();
+        }
+        for (AdministradorSistema as : almacen.getAdministradoresSistema()) {
+            if (as.getDni().equals(dni)) return "Administrador: " + as.getNombre() + " " + as.getApellidos();
+        }
+        return "No encontrado";
     }
 
     /**

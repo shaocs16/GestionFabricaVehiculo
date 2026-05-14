@@ -91,7 +91,7 @@ public class factory_main {
                     break;
                 case 7:
                     sistemaGestion.resetSistema();
-                    System.out.println("Sistema reiniciado correctamente.");
+                    dashboard.update("Sistema reiniciado correctamente.");
                     break;
                 case 0:
                     System.out.println("Saliendo...");
@@ -115,7 +115,7 @@ public class factory_main {
         int yaEnCadena = cadenaMontaje.getCadenaBiplaza().size() + cadenaMontaje.getCadenaTurismo().size() + cadenaMontaje.getCadenaFurgoneta().size();
         ComprobacionStock res = sistemaGestion.comprobarStock(yaEnCadena + 1);
         if (res != ComprobacionStock.OK) {
-            System.out.println("No se añade el vehículo: stock insuficiente de " + res);
+            dashboard.mostrarError("No se añade el vehículo, stock insuficiente de " + res);
             return false;
         }
         return true;
@@ -139,6 +139,9 @@ public class factory_main {
             switch (tipo) {
                 case "Biplaza":
                     g.configurarBiplazas(cadenaMontaje, 1, color, tara, pesoMax, null, null, null);
+                    cadenaMontaje.getCadenaBiplaza()
+                            .get(cadenaMontaje.getCadenaBiplaza().size() - 1)
+                            .setPlazas(plazas);
                     break;
                 case "Turismo":
                     g.configurarTurismos(cadenaMontaje, 1, color, tara, pesoMax, null, null, null);
@@ -158,15 +161,15 @@ public class factory_main {
             switch (tipo) {
                 case "Biplaza":
                     cadenaMontaje.agregarBiplaza(new BiplazaDeportivo(color, plazas, pesoMax, tara, null, null, null));
-                    System.out.println("Biplaza Deportivo añadido a la cadena.");
+                    dashboard.mostrarConfirmacion("Biplaza Deportivo añadido a la cadena.");
                     break;
                 case "Turismo":
                     cadenaMontaje.agregarTurismo(new Turismo(color, plazas, pesoMax, tara, null, null, null));
-                    System.out.println("Turismo añadido a la cadena.");
+                    dashboard.mostrarConfirmacion("Turismo añadido a la cadena.");
                     break;
                 case "Furgoneta":
                     cadenaMontaje.agregarFurgoneta(new Furgoneta(color, plazas, pesoMax, tara, null, null, null));
-                    System.out.println("Furgoneta añadida a la cadena.");
+                    dashboard.mostrarConfirmacion("Furgoneta añadida a la cadena.");
                     break;
             }
         }
@@ -199,7 +202,7 @@ public class factory_main {
         }
 
         if (lista.isEmpty()) {
-            System.out.println("No hay elementos para actualizar.");
+            dashboard.update("No hay elementos para actualizar.");
             return;
         }
 
@@ -224,7 +227,7 @@ public class factory_main {
                 m.setPotencia(sc.nextInt());
                 System.out.print("Nuevo número cilindros: ");
                 m.setNumeroCilindros(sc.nextInt());
-                System.out.println("Motor actualizado.");
+                dashboard.mostrarConfirmacion("Motor actualizado.");
                 break;
             }
             case 2: {
@@ -234,7 +237,7 @@ public class factory_main {
                 t.setColor(sc.nextLine());
                 System.out.print("Nuevos m²: ");
                 t.setMetrosCuadrados(sc.nextDouble());
-                System.out.println("Tapicería actualizada.");
+                dashboard.mostrarConfirmacion("Tapicería actualizada.");
                 break;
             }
             case 3: {
@@ -247,7 +250,7 @@ public class factory_main {
                 r.setIndiceCarga(sc.nextInt());
                 System.out.print("Nuevo código velocidad: ");
                 r.setVelocidad(sc.nextInt());
-                System.out.println("Rueda actualizada.");
+                dashboard.mostrarConfirmacion("Rueda actualizada.");
                 break;
             }
         }
@@ -290,7 +293,7 @@ public class factory_main {
                     System.out.print("Cilindros: ");
                     int numCilGasolina = sc.nextInt();
                     sistemaGestion.registrarMotor(new Gasolina(cGasolina, pGasolina, numCilGasolina));
-                    System.out.println("Motor Gasolina registrado.");
+                    dashboard.mostrarConfirmacion("Motor Gasolina registrado.");
                     break;
                 case 2:
                     System.out.print("Cilindrada: ");
@@ -300,7 +303,7 @@ public class factory_main {
                     System.out.print("Cilindros: ");
                     int numCilcElectrico = sc.nextInt();
                     sistemaGestion.registrarMotor(new Electrico(cElectrico, pcElectrico, numCilcElectrico));
-                    System.out.println("Motor Electrico registrado.");
+                    dashboard.mostrarConfirmacion("Motor Electrico registrado.");
                     break;
                 case 3:
                     System.out.print("Cilindrada: ");
@@ -310,7 +313,7 @@ public class factory_main {
                     System.out.print("Cilindros: ");
                     int numCilcHibrido = sc.nextInt();
                     sistemaGestion.registrarMotor(new Hibrido(cHibrido, pcHibrido, numCilcHibrido));
-                    System.out.println("Motor Hibrido registrado.");
+                    dashboard.mostrarConfirmacion("Motor Hibrido registrado.");
                     break;
                 case 4:
                     System.out.print("Color: ");
@@ -319,7 +322,7 @@ public class factory_main {
                     System.out.print("Metros Cuadrados: ");
                     double mcTela = sc.nextDouble();
                     sistemaGestion.registrarTapiceria(new Tela(cTela, mcTela));
-                    System.out.println("Tapiceria Tela registrado.");
+                    dashboard.mostrarConfirmacion("Tapiceria Tela registrado.");
                     break;
                 case 5:
                     System.out.print("Color: ");
@@ -328,7 +331,7 @@ public class factory_main {
                     System.out.print("Metros Cuadrados: ");
                     double mcCuero = sc.nextDouble();
                     sistemaGestion.registrarTapiceria(new Cuero(cCuero, mcCuero));
-                    System.out.println("Tapiceria Cuero registrado.");
+                    dashboard.mostrarConfirmacion("Tapiceria Cuero registrado.");
                     break;
                 case 6:
                     System.out.print("Color: ");
@@ -337,7 +340,7 @@ public class factory_main {
                     System.out.print("Metros Cuadrados: ");
                     double mcAlcantara = sc.nextDouble();
                     sistemaGestion.registrarTapiceria(new Alcantara(cAlcantara, mcAlcantara));
-                    System.out.println("Tapiceria Alcantara registrado.");
+                    dashboard.mostrarConfirmacion("Tapiceria Alcantara registrado.");
                     break;
                 case 7:
                     System.out.print("Ancho: ");
@@ -351,7 +354,7 @@ public class factory_main {
                     for (int i = 0; i < 4; i++) {
                         sistemaGestion.registrarRueda(new Normal(aNormal, pLlantaNormal, indiCargaNormal,codVelNormal));
                     }
-                    System.out.println("4 Ruedas Normales registradas.");
+                    dashboard.mostrarConfirmacion("4 Ruedas Normales registradas.");
                     break;
                 case 8:
                     System.out.print("Ancho: ");
@@ -365,7 +368,7 @@ public class factory_main {
                     for (int i = 0; i < 4; i++) {
                         sistemaGestion.registrarRueda(new Deportivo(aDeportivo, pLlantaDeportivo, indiCargaDeportivo,codVelDeportivo));
                     }
-                    System.out.println("4 Ruedas Deportivas registradas.");
+                    dashboard.mostrarConfirmacion("4 Ruedas Deportivas registradas.");
                     break;
                 case 9:
                     System.out.print("Ancho: ");
@@ -379,7 +382,7 @@ public class factory_main {
                     for (int i = 0; i < 4; i++) {
                         sistemaGestion.registrarRueda(new Todoterreno(aTodoterreno, pLlantaTodoterreno, indiCargaTodoterreno,codVelTodoterreno));
                     }
-                    System.out.println("4 Ruedas Todoterrenos registradas.");
+                    dashboard.mostrarConfirmacion("4 Ruedas Todoterrenos registradas.");
                     break;
                 case 10:
                     System.out.print("Color: ");
@@ -471,22 +474,22 @@ public class factory_main {
                         case 1:
                             sistemaGestion.registrarOperario(
                                 new Operario(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
-                            System.out.println("Operario registrado.");
+                            dashboard.mostrarConfirmacion("Operario registrado.");
                             break;
                         case 2:
                             sistemaGestion.registrarMecanico(
                                 new Mecanico(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
-                            System.out.println("Mecánico registrado.");
+                            dashboard.mostrarConfirmacion("Mecánico registrado.");
                             break;
                         case 3:
                             sistemaGestion.registrarGestorPlanta(
                                 new GestorPlanta(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
-                            System.out.println("Gestor de Planta registrado.");
+                            dashboard.mostrarConfirmacion("Gestor de Planta registrado.");
                             break;
                         case 4:
                             sistemaGestion.registrarAdministradorSistema(
                                 new AdministradorSistema(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
-                            System.out.println("Administrador de Sistema registrado.");
+                            dashboard.mostrarConfirmacion("Administrador de Sistema registrado.");
                             break;
                     }
                     break;
@@ -518,26 +521,44 @@ public class factory_main {
                 case 1:
                     System.out.print("Nombre a buscar: ");
                     String nombre = sc.nextLine();
-                    for (Operario o : sistemaGestion.buscarOperariosPorNombre(nombre)) {
-                        System.out.println("  - " + o.getNombre() + " " + o.getApellidos());
+                    List<Operario> encontrados = sistemaGestion.buscarOperariosPorNombre(nombre);
+                    if (encontrados.isEmpty()) {
+                        dashboard.update("No se encontraron operarios con ese nombre.");
+                    } else {
+                        dashboard.update("Operarios Encontrados: ");
+                        for (Operario o : sistemaGestion.buscarOperariosPorNombre(nombre)) {
+                            System.out.println("  - " + o.getNombre() + " " + o.getApellidos());
+                        }
                     }
                     break;
                 case 2:
-                    for (Operario o : sistemaGestion.buscarOperariosEficientes()) {
-                        System.out.println("  - " + o.getNombre() + " (montajes: " + o.getMontajesRealizados() + ")");
+                    List<Operario> eficientes = sistemaGestion.buscarOperariosEficientes();
+                    if(eficientes.isEmpty()) {
+                        dashboard.update("No hay operarios eficientes registrados.");
+                    } else {
+                        dashboard.update("Listando Operarios Eficientes: ");
+                        for (Operario o : sistemaGestion.buscarOperariosEficientes()) {
+                            System.out.println("  - " + o.getNombre() + " (montajes: " + o.getMontajesRealizados() + ")");
+                        }
                     }
+
                     break;
                 case 3:
                     System.out.print("DNI: ");
                     String dni = sc.nextLine();
-                    System.out.println(sistemaGestion.buscarTrabajadorPorDni(dni));
+                    String trabajadorDni = sistemaGestion.buscarTrabajadorPorDni(dni);
+                    if (trabajadorDni == null) {
+                        dashboard.update("No se encontró ningún trabajador con ese DNI.");
+                    } else {
+                        dashboard.update("Trabajador encontrado, " + trabajadorDni);
+                    }
                     break;
                 case 4: {
-
                     List<Operario> todos = sistemaGestion.consultarOperario();
                     if (todos.isEmpty()) {
-                        System.out.println("No hay operarios registrados.");
+                        dashboard.update("No hay operarios registrados.");
                     } else {
+                        dashboard.update("Listando Operarios: ");
                         for (Operario o : todos) {
                             String perfil = o.esEficiente() ? "eficiente" : "estándar";
                             System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " | DNI: " + o.getDni() + " | montajes: " + o.getMontajesRealizados() + " (" + perfil + ")");
@@ -550,8 +571,9 @@ public class factory_main {
                     String nombreMecanico = sc.nextLine();
                     List<Mecanico> mecanicos = sistemaGestion.buscarMecanicosPorNombre(nombreMecanico);
                     if (mecanicos.isEmpty()) {
-                        System.out.println("No se encontraron mecánicos con ese nombre.");
+                        dashboard.update("No se encontraron mecánicos con ese nombre.");
                     } else {
+                        dashboard.update("Listando Mecánicos: ");
                         for (Mecanico m : mecanicos) {
                             System.out.println("  - " + m.getNombre() + " " + m.getApellidos());
                         }
@@ -572,7 +594,7 @@ public class factory_main {
      * ensamblados, separados por tipo.
      */
     public static void mostrarStock() {
-        System.out.println("\nSTOCK DEL ALMACÉN");
+        dashboard.update("STOCK DEL ALMACÉN");
         System.out.println("Motores disponibles:    " + sistemaGestion.consultarMotor().size());
         System.out.println("Tapicerías disponibles: " + sistemaGestion.consultarTapiceria().size());
         System.out.println("Ruedas disponibles:     " + sistemaGestion.consultarRueda().size());
@@ -602,14 +624,14 @@ public class factory_main {
      * @param lista lista de coches a evaluar
      * @return número de coches pendientes
      */
-    private static int contarPendientes(java.util.List<? extends com.practica.vehiculo.Coche> lista) {
-        int n = 0;
-        for (com.practica.vehiculo.Coche c : lista) {
-            if (c.getEstadoMontaje() != com.practica.vehiculo.EstadoMontaje.TERMINADO) {
-                n++;
+    private static int contarPendientes(List<? extends Coche> lista) {
+        int cont = 0;
+        for (Coche c : lista) {
+            if (c.getEstadoMontaje() != EstadoMontaje.TERMINADO) {
+                cont++;
             }
         }
-        return n;
+        return cont;
     }
 
     /**
@@ -636,47 +658,51 @@ public class factory_main {
             }
 
             if (op < 1 || op > 3) {
-                System.out.println("Opción no válida.");
+                dashboard.mostrarError("Opción no válida.");
                 continue;
             }
 
             cadenaMontaje.purgarTerminados();
             int totalCoches = cadenaMontaje.getCadenaBiplaza().size() + cadenaMontaje.getCadenaTurismo().size() + cadenaMontaje.getCadenaFurgoneta().size();
             if (totalCoches == 0) {
-                System.out.println("No hay vehículos en la cadena. Añade vehículos desde Gestión de Almacén (opciones 10-12).");
+                dashboard.mostrarError("No hay vehículos en la cadena. Añade vehículos desde Gestión de Almacén (opciones 10-12).");
                 break;
             }
 
             ComprobacionStock res = sistemaGestion.comprobarStock(totalCoches);
             if (res != ComprobacionStock.OK) {
-                System.out.println("Simulación cancelada: stock insuficiente de " + res);
+                dashboard.mostrarError("Simulación cancelada, stock insuficiente de " + res);
                 break;
             }
 
             if (op >= 2 && sistemaGestion.consultarMecanico().isEmpty()) {
-                System.out.println("Simulación cancelada: se requiere al menos un mecánico.");
+                dashboard.mostrarError("Simulación cancelada, se requiere al menos un mecánico.");
                 break;
             }
             if (op == 2) {
-                boolean hayEficiente = false, hayEstandar = false;
+                boolean hayEficiente = false;
+                boolean hayEstandar = false;
                 for (Mecanico m : sistemaGestion.consultarMecanico()) {
-                    if (m.esEficiente()) hayEficiente = true; else hayEstandar = true;
+                    if (m.esEficiente()) {
+                        hayEficiente = true;
+                    } else {
+                        hayEstandar = true;
+                    }
                 }
                 if (!hayEficiente && hayEstandar) {
-                    System.out.println("[AVISO] Aún no hay mecánicos eficientes (>20 reparaciones). " + "La simulación continuará sólo con mecánicos estándar.");
+                    dashboard.update("[AVISO] Aún no hay mecánicos eficientes (>20 reparaciones). " + "La simulación continuará sólo con mecánicos estándar.");
                 }
             }
             if (op == 3 && sistemaGestion.consultarAdministradorSistema().isEmpty()) {
-                System.out.println("Simulación cancelada: se requiere un Administrador de Sistema para gestionar apagones.");
+                dashboard.mostrarError("Simulación cancelada, se requiere un Administrador de Sistema para gestionar apagones.");
                 break;
             }
 
-            Mecanico[] mecs = (op == 1) ? new Mecanico[0]
-                : sistemaGestion.consultarMecanico().toArray(new Mecanico[0]);
+            Mecanico[] mecs = (op == 1) ? new Mecanico[0] : sistemaGestion.consultarMecanico().toArray(new Mecanico[0]);
 
             AdministradorSistema admin = (op == 3 && !sistemaGestion.consultarAdministradorSistema().isEmpty()) ? sistemaGestion.consultarAdministradorSistema().get(0) : null;
 
-            System.out.println("Iniciando simulación con " + totalCoches + " vehículos...");
+            dashboard.update("Iniciando simulación con " + totalCoches + " vehículos...");
 
             Planificador planificador = new Planificador(cadenaMontaje, sistemaGestion, op, mecs, admin);
             planificador.addObservador(dashboard);
@@ -711,7 +737,7 @@ public class factory_main {
                 case 1: {
                     List<Operario> lista = sistemaGestion.ordenarOperarios();
                     if (lista.isEmpty()) {
-                        System.out.println("No hay operarios registrados.");
+                        dashboard.update("No hay operarios registrados.");
                     } else {
                         for (Operario o : lista) {
                             System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " (montajes: " + o.getMontajesRealizados() + ")");
@@ -724,8 +750,9 @@ public class factory_main {
                     int min = sc.nextInt();
                     List<Operario> lista = sistemaGestion.obtenerOperariosProductividad(min);
                     if (lista.isEmpty()) {
-                        System.out.println("Ningún operario alcanza ese umbral.");
+                        dashboard.update("Ningún operario alcanza ese umbral.");
                     } else {
+                        dashboard.update("Listando Operarios: ");
                         for (Operario o : lista) {
                             System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " (montajes: " + o.getMontajesRealizados() + ")");
                         }
@@ -735,8 +762,9 @@ public class factory_main {
                 case 3: {
                     List<Coche> coches = sistemaGestion.obtenerCochesTerminados(cadenaMontaje);
                     if (coches.isEmpty()) {
-                        System.out.println("No hay vehículos terminados todavía.");
+                        dashboard.update("No hay vehículos terminados todavía.");
                     } else {
+                        dashboard.update("Listando vehículos terminados: ");
                         for (Coche c : coches) {
                             System.out.println("  - " + c.tipoCoche() + " (" + c.getColor() + ")");
                         }
@@ -750,8 +778,9 @@ public class factory_main {
                     List<Coche> terminados = sistemaGestion.obtenerCochesTerminados(cadenaMontaje);
                     List<Coche> filtrados = sistemaGestion.filtrarTipoMotor(terminados, tipo);
                     if (filtrados.isEmpty()) {
-                        System.out.println("Sin coincidencias.");
+                        dashboard.update("Sin coincidencias.");
                     } else {
+                        dashboard.update("Listado vehículos con motor " + tipo);
                         for (Coche c : filtrados) {
                             System.out.println("  - " + c.tipoCoche() + " (" + c.getColor() + ")");
                         }
@@ -765,8 +794,9 @@ public class factory_main {
                     List<Coche> terminados = sistemaGestion.obtenerCochesTerminados(cadenaMontaje);
                     List<Coche> filtrados = sistemaGestion.filtrarTipoTapiceria(terminados, tipo);
                     if (filtrados.isEmpty()) {
-                        System.out.println("Sin coincidencias.");
+                        dashboard.update("Sin coincidencias.");
                     } else {
+                        dashboard.update("Listando vehículos con tapicería " + tipo);
                         for (Coche c : filtrados) {
                             System.out.println("  - " + c.tipoCoche() + " (" + c.getColor() + ")");
                         }
@@ -777,8 +807,9 @@ public class factory_main {
                     List<Coche> terminados = sistemaGestion.obtenerCochesTerminados(cadenaMontaje);
                     List<Coche> ordenados = sistemaGestion.obtenerCochesOrdenados(terminados);
                     if (ordenados.isEmpty()) {
-                        System.out.println("No hay vehículos terminados.");
+                        dashboard.update("No hay vehículos terminados.");
                     } else {
+                        dashboard.update("Listando vehículos terminados ordenados por tipo: ");
                         for (Coche c : ordenados) {
                             System.out.println("  - " + c.tipoCoche() + " (" + c.getColor() + ")");
                         }
@@ -788,7 +819,7 @@ public class factory_main {
                 case 7: {
                     Map<String, Integer> conf = sistemaGestion.getConfiguracionesMasEnsamblados(cadenaMontaje);
                     if (conf.isEmpty()) {
-                        System.out.println("Aún no hay configuraciones ensambladas.");
+                        dashboard.update("Aún no hay configuraciones ensambladas.");
                     } else {
                         for (Map.Entry<String, Integer> e : conf.entrySet()) {
                             System.out.println("  - " + e.getKey() + "  => " + e.getValue() + " uds.");
@@ -802,18 +833,17 @@ public class factory_main {
                     String fechaStr = sc.nextLine().trim();
                     Date fecha;
                     try {
-                        fecha = fechaStr.isEmpty()
-                                ? new Date()
-                                : new SimpleDateFormat("dd/MM/yyyy").parse(fechaStr);
+                        fecha = fechaStr.isEmpty()? new Date() : new SimpleDateFormat("dd/MM/yyyy").parse(fechaStr);
                     } catch (Exception ex) {
-                        System.out.println("Fecha no válida. Usa el formato dd/MM/yyyy.");
+                        dashboard.mostrarError("Fecha no válida. Usa el formato dd/MM/yyyy.");
                         break;
                     }
                     List<RegistroMontaje> regs = sistemaGestion.consultarHistorialFecha(fecha);
                     if (regs.isEmpty()) {
-                        System.out.println("Sin registros para esa fecha.");
+                        dashboard.update("Sin registros para esa fecha.");
                     } else {
                         SimpleDateFormat fmt = new SimpleDateFormat("HH:mm:ss");
+                        dashboard.update("Historial de operaciones para " + new SimpleDateFormat("dd/MM/yyyy").format(fecha) + ":");
                         for (RegistroMontaje r : regs) {
                             System.out.println("  - " + fmt.format(r.getFecha())
                                     + " | " + r.getTipoComponente()
