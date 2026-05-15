@@ -281,18 +281,18 @@ public class SistemaGestion
      */
     public String buscarTrabajadorPorDni(String dni) {
         for (Operario op : almacen.getOperarios()) {
-        if (op.getDni().equals(dni)) return "Operario: " + op.getNombre() + " " + op.getApellidos();
-    }
-    for (Mecanico mec : almacen.getMecanicos()) {
-        if (mec.getDni().equals(dni)) return "Mecánico: " + mec.getNombre() + " " + mec.getApellidos();
-    }
-    for (GestorPlanta gp : almacen.getGestoresPlanta()) {
-        if (gp.getDni().equals(dni)) return "Gestor: " + gp.getNombre() + " " + gp.getApellidos();
-    }
-    for (AdministradorSistema as : almacen.getAdministradoresSistema()) {
-        if (as.getDni().equals(dni)) return "Administrador: " + as.getNombre() + " " + as.getApellidos();
-    }
-    return "No encontrado";
+            if (op.getDni().equals(dni)) return "Operario: " + op.getNombre() + " " + op.getApellidos();
+        }
+        for (Mecanico mec : almacen.getMecanicos()) {
+            if (mec.getDni().equals(dni)) return "Mecánico: " + mec.getNombre() + " " + mec.getApellidos();
+        }
+        for (GestorPlanta gp : almacen.getGestoresPlanta()) {
+            if (gp.getDni().equals(dni)) return "Gestor: " + gp.getNombre() + " " + gp.getApellidos();
+        }
+        for (AdministradorSistema as : almacen.getAdministradoresSistema()) {
+            if (as.getDni().equals(dni)) return "Administrador: " + as.getNombre() + " " + as.getApellidos();
+        }
+        return "No encontrado";
     }
 
     /**
@@ -303,24 +303,21 @@ public class SistemaGestion
      * @param cantidad número de vehículos que se desean fabricar
      * @return {@code true} si hay stock suficiente; {@code false} en otro caso
      */
-    public boolean hayStockSuficiente(int cantidad){
+    public ComprobacionStock comprobarStock(int cantidad){
         int cantidadMotores = almacen.getStockMotores();
         int cantidadTapiceria = almacen.getStockTapicerias();
         int cantidadRueda = almacen.getStockRuedas();
 
         if (cantidadMotores < cantidad) {
-            System.out.println("No hay stock suficiente de motores: hay " + cantidadMotores + " y se necesitan " + cantidad);
-            return false;
+            return ComprobacionStock.SIN_MOTORES;
         }
         if (cantidadTapiceria < cantidad) {
-            System.out.println("No hay stock suficiente de tapicerías: hay " + cantidadTapiceria + " y se necesitan " + cantidad);
-            return false;
+            return ComprobacionStock.SIN_TAPICERIAS;
         }
         if (cantidadRueda < cantidad * 4) {
-            System.out.println("No hay stock suficiente de ruedas: hay " + cantidadRueda+ " y se necesitan " + (cantidad * 4));
-            return false;
+            return ComprobacionStock.SIN_RUEDAS;
         }
-        return true;
+        return ComprobacionStock.OK;
     }
 
     /**
