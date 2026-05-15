@@ -478,7 +478,7 @@ public class factory_main {
                             break;
                         case 2:
                             sistemaGestion.registrarMecanico(
-                                new Mecanico(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
+                                new Mecanico(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now(),dashboard));
                             dashboard.mostrarConfirmacion("Mecánico registrado.");
                             break;
                         case 3:
@@ -704,7 +704,7 @@ public class factory_main {
 
             dashboard.update("Iniciando simulación con " + totalCoches + " vehículos...");
 
-            Planificador planificador = new Planificador(cadenaMontaje, sistemaGestion, op, mecs, admin);
+            Planificador planificador = new Planificador(cadenaMontaje, sistemaGestion, op, mecs, admin, dashboard);
             planificador.addObservador(dashboard);
 
             planificador.iniciarSimulacion();

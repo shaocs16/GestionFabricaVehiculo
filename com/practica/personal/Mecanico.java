@@ -1,6 +1,8 @@
 package com.practica.personal;
 
 import java.time.LocalDate;
+
+import com.practica.dashboard.Dashboard;
 import com.practica.vehiculo.Coche;
 
 /**
@@ -21,9 +23,13 @@ public class Mecanico extends Trabajador {
     /** Número de reparaciones realizadas por el mecánico. */
     private int reparacionesRealizadas;
 
+    /** Dashboard al que el mecánico notifica el resultado de las reparaciones. */
+    private Dashboard dashboard;
+
     /**
-     * Crea un mecánico de cinta con sus datos personales. El puesto queda
-     * fijado automáticamente como "Mecánico de cinta".
+     * Crea un mecánico de cinta con sus datos personales y el dashboard
+     * al que notificará el resultado de sus reparaciones.
+     * El puesto queda fijado automáticamente como "Mecánico de cinta".
      *
      * @param nombre       nombre del mecánico
      * @param apellidos    apellidos del mecánico
@@ -32,10 +38,12 @@ public class Mecanico extends Trabajador {
      * @param numSegSocial número de la Seguridad Social
      * @param salario      salario bruto
      * @param fechaIngreso fecha de ingreso en la empresa
+     * @param dashboard    dashboard al que se enviarán las notificaciones
      */
-    public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial, double salario, LocalDate fechaIngreso) {
+    public Mecanico(String nombre, String apellidos, String dni, String direccion, String numSegSocial, double salario, LocalDate fechaIngreso, Dashboard dashboard) {
         super(nombre, apellidos, dni, direccion, numSegSocial, "Mecánico de cinta", salario, fechaIngreso);
         this.reparacionesRealizadas = 0;
+        this.dashboard = dashboard;
     }
 
     /**
@@ -50,7 +58,7 @@ public class Mecanico extends Trabajador {
             c.setTiempoReparacion(0);
             c.setAveriado(false);
             reparacionesRealizadas++;
-            System.out.println("El mecánico " + getNombre() + " " + getApellidos() + " ha reparado la avería de un coche.");
+            dashboard.update("El mecánico " + getNombre() + " " + getApellidos() + " ha reparado la avería de un coche.");
         }
     }
 

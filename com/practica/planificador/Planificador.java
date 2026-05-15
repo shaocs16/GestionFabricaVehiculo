@@ -78,6 +78,9 @@ public class Planificador implements Observable {
     /** Gestor de planta encargado de avisos y llamadas al mecánico. */
     private GestorPlanta gestorPlanta;
 
+    /** Dashboard al que el planificador notifica avisos y resúmenes de simulación. */
+    private Dashboard dashboard;
+
     /**
      * Construye un planificador con los recursos necesarios para simular la
      * fábrica. Asocia operarios reales a los robots si los hay; en caso
@@ -90,13 +93,15 @@ public class Planificador implements Observable {
      * @param mecanicos       mecánicos disponibles
      * @param admin           administrador del sistema (puede ser {@code null}
      *                        en niveles que no lo requieran)
+     * @param dashboard       dashboard al que se enviarán avisos y resúmenes
      */
-    public Planificador(CadenaMontaje cadenaMontaje, SistemaGestion sistemaGestion, int tipoSimulacion, Mecanico[] mecanicos, AdministradorSistema admin) {
+    public Planificador(CadenaMontaje cadenaMontaje, SistemaGestion sistemaGestion, int tipoSimulacion, Mecanico[] mecanicos, AdministradorSistema admin, Dashboard dashboard) {
         this.cadenaMontaje = cadenaMontaje;
         this.sistemaGestion = sistemaGestion;
         this.tipoSimulacion = tipoSimulacion;
         this.mecanicos = mecanicos;
         this.admin = admin;
+        this.dashboard = dashboard;
 
         List<GestorPlanta> gestores = sistemaGestion.consultarGestorPlanta();
         this.gestorPlanta = gestores.isEmpty() ? null : gestores.get(0);
@@ -202,10 +207,10 @@ public class Planificador implements Observable {
             montajeTerminado = comprobarFinMontaje();
         }
         if (segundo > maxTicks) {
-            System.out.println("\n[ABORTADA] Se alcanzó el tope de " + maxTicks
+            dashboard.mostrarError("\n[ABORTADA] Se alcanzó el tope de " + maxTicks
                 + " segundos. Revise mecánicos / stock.");
         } else {
-            System.out.println("\nSimulación terminada en " + (segundo - 1) + " segundos.");
+            notifyObservadores("\nSimulación terminada en " + (segundo - 1) + " segundos.");
         }
         imprimirResumenTrabajadores();
     }
@@ -540,14 +545,14 @@ public class Planificador implements Observable {
 
         if (tipoSimulacion >= 2 && mecanicos != null) {
             for (Mecanico m : mecanicos) {
-                System.out.println(" El mecánico " + m.getNombre() + " " + m.getApellidos() + " ha hecho " + m.getReparacionesRealizadas() + " reparaciones.");
+                System.out.println("- El mecánico " + m.getNombre() + " " + m.getApellidos() + " ha hecho " + m.getReparacionesRealizadas() + " reparaciones.");
             }
         }
         if (tipoSimulacion == 3 && admin != null) {
-            System.out.println(" El administrador " + admin.getNombre() + " " + admin.getApellidos() + " ha restaurado la luz: " + admin.getRestauracionesRealizadas() + " veces.");
+            System.out.println("- El administrador " + admin.getNombre() + " " + admin.getApellidos() + " ha restaurado la luz: " + admin.getRestauracionesRealizadas() + " veces.");
         }
         if (tipoSimulacion == 1) {
-            System.out.println(" Simulación simple completada sin incidencias.");
+            System.out.println("- Simulación simple completada sin incidencias.");
         }
     }
 
