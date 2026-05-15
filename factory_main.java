@@ -822,6 +822,7 @@ public class factory_main {
                     if (conf.isEmpty()) {
                         dashboard.update("Aún no hay configuraciones ensambladas.");
                     } else {
+                        dashboard.update("Configuraciones más ensambladas:");
                         for (Map.Entry<String, Integer> e : conf.entrySet()) {
                             System.out.println("  - " + e.getKey() + "  => " + e.getValue() + " uds.");
                         }
