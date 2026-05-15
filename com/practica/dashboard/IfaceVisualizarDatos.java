@@ -18,4 +18,20 @@ public interface IfaceVisualizarDatos {
      * @param mensaje texto a mostrar
      */
     void mostrarDatos(String mensaje);
+
+    /**
+     * Muestra un mensaje de confirmación de una acción realizada,
+     * diferenciándolo visualmente de las notificaciones de cambio de estado.
+     *
+     * @param mensaje texto de confirmación a mostrar
+     */
+    void confirmacionDatos(String mensaje);
+
+    /**
+     * Muestra un mensaje de error, diferenciándolo visualmente del resto
+     * de mensajes del dashboard.
+     *
+     * @param mensaje texto del error a mostrar
+     */
+    void errorDashboard(String mensaje);
 }

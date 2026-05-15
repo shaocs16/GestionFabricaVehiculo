@@ -44,14 +44,6 @@ public abstract class Coche {
     private int tiempoReparacion = 0;
 
     /**
-     * Constructor por defecto. Crea un coche sin inicializar sus atributos,
-     * útil para frameworks o subclases que rellenan los datos posteriormente.
-     */
-    public Coche() {
-
-    }
-
-    /**
      * Crea un coche con todos sus atributos principales y componentes asignados.
      *
      * @param color          color exterior del vehículo

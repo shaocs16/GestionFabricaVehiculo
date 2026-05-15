@@ -80,7 +80,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarBiplazaDeportivo(BiplazaDeportivo biplazaDeportivo) {
         biplazasDeportivos.add(biplazaDeportivo);
         registrarOperacion(new RegistroMontaje(new Date(), "Biplaza Deportivo", "Vehículo terminado"));
-        notifyObservadores("Vehículo terminado: Biplaza Deportivo");
+        notifyObservadores("Vehículo terminado, Biplaza Deportivo");
     }
 
     /** {@inheritDoc} */
@@ -97,7 +97,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarFurgoneta(Furgoneta furgoneta) {
         furgonetas.add(furgoneta);
         registrarOperacion(new RegistroMontaje(new Date(), "Furgoneta", "Vehículo terminado"));
-        notifyObservadores("Vehículo terminado: Furgoneta");
+        notifyObservadores("Vehículo terminado, Furgoneta");
     }
 
     /** {@inheritDoc} */
@@ -114,7 +114,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarTurismo(Turismo turismo) {
         turismos.add(turismo);
         registrarOperacion(new RegistroMontaje(new Date(), "Turismo", "Vehículo terminado"));
-        notifyObservadores("Vehículo terminado: Turismo");
+        notifyObservadores("Vehículo terminado, Turismo");
     }
 
     /** {@inheritDoc} */
@@ -131,7 +131,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarMotor(Motor motor) {
         motores.add(motor);
         registrarOperacion(new RegistroMontaje(new Date(), "Motor", "Añadido al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Motor");
+        notifyObservadores("Nuevo componente en almacén, Motor " + motor.tipoMotor());
     }
 
     /** {@inheritDoc} */
@@ -148,7 +148,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarTapiceria(Tapiceria tapiceria) {
         tapicerias.add(tapiceria);
         registrarOperacion(new RegistroMontaje(new Date(), "Tapiceria", "Añadida al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Tapiceria");
+        notifyObservadores("Nuevo componente en almacén, Tapiceria " + tapiceria.tipoTapiceria());
     }
 
     /** {@inheritDoc} */
@@ -165,7 +165,7 @@ public class AlmacenDatos implements IfaceAlmacen, Observable {
     public void agregarRueda(Rueda rueda) {
         ruedas.add(rueda);
         registrarOperacion(new RegistroMontaje(new Date(), "Rueda", "Añadida al almacén"));
-        notifyObservadores("Nuevo componente en almacén: Rueda");
+        notifyObservadores("Nuevo componente en almacén, Rueda " + rueda.tipoRueda());
     }
 
     /** {@inheritDoc} */
