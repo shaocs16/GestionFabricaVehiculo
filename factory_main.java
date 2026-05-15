@@ -483,7 +483,7 @@ public class factory_main {
                             break;
                         case 3:
                             sistemaGestion.registrarGestorPlanta(
-                                new GestorPlanta(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now()));
+                                new GestorPlanta(nombre, apellidos, dni, dir, segSocial, salario, LocalDate.now(),dashboard));
                             dashboard.mostrarConfirmacion("Gestor de Planta registrado.");
                             break;
                         case 4:
@@ -739,6 +739,7 @@ public class factory_main {
                     if (lista.isEmpty()) {
                         dashboard.update("No hay operarios registrados.");
                     } else {
+                        dashboard.update("Listando Operarios Ordenas:");
                         for (Operario o : lista) {
                             System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " (montajes: " + o.getMontajesRealizados() + ")");
                         }

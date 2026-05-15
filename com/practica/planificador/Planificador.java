@@ -251,7 +251,7 @@ public class Planificador implements Observable {
                 continue;
             }
             if (c.isAveriado()) {
-                System.out.println("[AVISO] Coche " + nombreCadena + " #" + (i + 1) + " averiado - esperando mecánico.");
+                notifyObservadores("[AVISO] Coche " + nombreCadena + " #" + (i + 1) + " averiado - esperando mecánico.");
                 i++;
                 continue;
             }
@@ -426,8 +426,7 @@ public class Planificador implements Observable {
                 c.setTiempoReparacion(-1);
 
                 if (gestorPlanta != null) {
-                    String revision = gestorPlanta.consultarDashboard(null);
-                    cadenaMontaje.notifyObservadores(revision);
+                    gestorPlanta.consultarDashboard();
                 }
 
                 String quien = (gestorPlanta != null) ? "El Gestor de Planta " + gestorPlanta.getNombre() + " " + gestorPlanta.getApellidos() : "El Gestor de Planta";
@@ -493,8 +492,7 @@ public class Planificador implements Observable {
 
                 if (c.getTiempoReparacion() <= 0) {
                     if (gestorPlanta != null) {
-                        String aviso = gestorPlanta.llamarMecanico(mec, c, null);
-                        cadenaMontaje.notifyObservadores(aviso);
+                        gestorPlanta.llamarMecanico(mec, c);
                     } else {
                         mec.repararCoche(c);
                     }
@@ -538,7 +536,7 @@ public class Planificador implements Observable {
      * mecánicos y administrador, adaptado al nivel de simulación.
      */
     private void imprimirResumenTrabajadores() {
-        System.out.println("\nRESUMEN");
+        notifyObservadores("RESUMEN");
 
         if (tipoSimulacion >= 2 && mecanicos != null) {
             for (Mecanico m : mecanicos) {
