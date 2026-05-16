@@ -106,9 +106,9 @@ public class GestorPlanta extends Trabajador {
         public void configurarFurgonetas(CadenaMontaje cadena, int cantidad, String color, double tara, double pesoMax, Motor motor, Tapiceria tapiceria, Rueda[] ruedas) {
                 dashboard.update("[GESTOR] " + getNombre() + " configura " + cantidad + " Furgoneta(s) en la cadena de montaje.");
                 for (int i = 0; i < cantidad; i++) {
-                Furgoneta f = new Furgoneta(color, 3, pesoMax, tara, tapiceria, motor, ruedas);
-                f.setEstadoMontaje(EstadoMontaje.CHASIS);
-                cadena.agregarFurgoneta(f);
+                        Furgoneta f = new Furgoneta(color, 3, pesoMax, tara, tapiceria, motor, ruedas);
+                        f.setEstadoMontaje(EstadoMontaje.CHASIS);
+                        cadena.agregarFurgoneta(f);
                 }
         }
 
