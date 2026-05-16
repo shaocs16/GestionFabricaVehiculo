@@ -91,15 +91,6 @@ public class CadenaMontaje implements Observable {
     }
 
     /**
-     * Vacía por completo las tres líneas de montaje.
-     */
-    public void limpiar() {
-        cadenaBiplaza.clear();
-        cadenaTurismo.clear();
-        cadenaFurgoneta.clear();
-    }
-
-    /**
      * Elimina de las tres líneas todos los vehículos que ya se encuentran en
      * estado {@link EstadoMontaje#TERMINADO}, dejando únicamente los que
      * siguen pendientes de ensamblar.
