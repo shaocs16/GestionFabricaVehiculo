@@ -60,9 +60,9 @@ public class GestorPlanta extends Trabajador {
         public void configurarBiplazas(CadenaMontaje cadena, int cantidad, String color, double tara, double pesoMax, Motor motor, Tapiceria tapiceria, Rueda[] ruedas) {
                 dashboard.update("[GESTOR] " + getNombre() + " configura " + cantidad + " Biplaza(s) en la cadena de montaje.");
                 for (int i = 0; i < cantidad; i++) {
-                BiplazaDeportivo bd = new BiplazaDeportivo(color, 2, pesoMax, tara,tapiceria, motor, ruedas);
-                bd.setEstadoMontaje(EstadoMontaje.CHASIS);
-                cadena.agregarBiplaza(bd);
+                        BiplazaDeportivo bd = new BiplazaDeportivo(color, 2, pesoMax, tara,tapiceria, motor, ruedas);
+                        bd.setEstadoMontaje(EstadoMontaje.CHASIS);
+                        cadena.agregarBiplaza(bd);
                 }
         }
 
