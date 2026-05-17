@@ -514,6 +514,9 @@ public class factory_main {
             System.out.println("3. Buscar trabajador por DNI");
             System.out.println("4. Listar todos los operarios");
             System.out.println("5. Buscar mecánico por nombre");
+            System.out.println("6. Listar todos los mecánicos");
+            System.out.println("7. Listar todos los gestores de planta");
+            System.out.println("8. Listar todos los administradores de sistema");
             System.out.println("0. Volver al menú principal");
             System.out.print("Opción: ");
             op = sc.nextInt(); sc.nextLine();
@@ -553,19 +556,18 @@ public class factory_main {
                         dashboard.update("Trabajador encontrado, " + trabajadorDni);
                     }
                     break;
-                case 4: {
-                    List<Operario> todos = sistemaGestion.consultarOperario();
-                    if (todos.isEmpty()) {
+                case 4:
+                    List<Operario> todosOperarios = sistemaGestion.consultarOperario();
+                    if (todosOperarios.isEmpty()) {
                         dashboard.update("No hay operarios registrados.");
                     } else {
                         dashboard.update("Listando Operarios: ");
-                        for (Operario o : todos) {
+                        for (Operario o : todosOperarios) {
                             String perfil = o.esEficiente() ? "eficiente" : "estándar";
                             System.out.println("  - " + o.getNombre() + " " + o.getApellidos() + " | DNI: " + o.getDni() + " | montajes: " + o.getMontajesRealizados() + " (" + perfil + ")");
                         }
                     }
                     break;
-                }
                 case 5:
                     System.out.print("Nombre del mecánico a buscar: ");
                     String nombreMecanico = sc.nextLine();
@@ -576,6 +578,40 @@ public class factory_main {
                         dashboard.update("Listando Mecánicos: ");
                         for (Mecanico m : mecanicos) {
                             System.out.println("  - " + m.getNombre() + " " + m.getApellidos());
+                        }
+                    }
+                    break;
+                case 6:
+                    List<Mecanico> todosMecanicos = sistemaGestion.consultarMecanico();
+                    if (todosMecanicos.isEmpty()) {
+                        dashboard.update("No hay mecánicos registrados.");
+                    } else {
+                        dashboard.update("Listando Mecánicos: ");
+                        for (Mecanico m : todosMecanicos) {
+                            String perfil = m.esEficiente() ? "eficiente" : "estándar";
+                            System.out.println("  - " + m.getNombre() + " " + m.getApellidos() + " | DNI: " + m.getDni() + " | reparaciones: " + m.getReparacionesRealizadas() + " (" + perfil + ")");
+                        }
+                    }
+                    break;
+                case 7:
+                    List<GestorPlanta> todosGestor = sistemaGestion.consultarGestorPlanta();
+                    if (todosGestor.isEmpty()) {
+                        dashboard.update("No hay operarios registrados.");
+                    } else {
+                        dashboard.update("Listando Operarios: ");
+                        for (GestorPlanta g : todosGestor) {
+                            System.out.println("  - " + g.getNombre() + " " + g.getApellidos() + " | DNI: " + g.getDni());
+                        }
+                    }
+                    break;
+                case 8:
+                    List<AdministradorSistema> todosAdmin = sistemaGestion.consultarAdministradorSistema();
+                    if (todosAdmin.isEmpty()) {
+                        dashboard.update("No hay operarios registrados.");
+                    } else {
+                        dashboard.update("Listando Operarios: ");
+                        for (AdministradorSistema a : todosAdmin) {
+                            System.out.println("  - " + a.getNombre() + " " + a.getApellidos() + " | DNI: " + a.getDni());
                         }
                     }
                     break;
