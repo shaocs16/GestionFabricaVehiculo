@@ -1,6 +1,6 @@
 <mxfile host="Electron">
   <diagram name="Página-1" id="gWUDSvQ_6UPcF0yUv1RO">
-    <mxGraphModel dx="2850" dy="1482" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+    <mxGraphModel dx="7439" dy="3556" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -224,6 +224,12 @@
         <mxCell id="zyDhq_38tlCp-nMUBXL5-113" parent="zyDhq_38tlCp-nMUBXL5-109" style="html=1;align=left;spacing=0;spacingLeft=8;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;" value="CHASIS&lt;div&gt;&lt;div&gt;MOTOR&lt;/div&gt;&lt;div&gt;TAPICERIA&lt;/div&gt;&lt;div&gt;RUEDAS&lt;/div&gt;&lt;/div&gt;&lt;div&gt;TERMINADO&lt;/div&gt;" vertex="1">
           <mxGeometry height="68" width="200" y="42" as="geometry" />
         </mxCell>
+        <mxCell id="HIm8LMSB1N4xCx5_bC1Q-1" edge="1" parent="zyDhq_38tlCp-nMUBXL5-109" style="endArrow=open;endSize=12;dashed=1;html=1;rounded=0;" value="Use">
+          <mxGeometry relative="1" width="160" as="geometry">
+            <mxPoint x="-100" y="95" as="sourcePoint" />
+            <mxPoint y="95" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
         <mxCell id="zyDhq_38tlCp-nMUBXL5-114" parent="zyDhq_38tlCp-nMUBXL5-109" style="html=1;align=left;spacing=0;spacingLeft=8;verticalAlign=middle;strokeColor=none;fillColor=none;whiteSpace=wrap;" value="" vertex="1">
           <mxGeometry height="6" width="200" y="110" as="geometry" />
         </mxCell>
@@ -273,12 +279,6 @@
           <mxGeometry relative="1" width="160" as="geometry">
             <mxPoint x="360" y="432.7800000000002" as="sourcePoint" />
             <mxPoint x="420" y="295" as="targetPoint" />
-          </mxGeometry>
-        </mxCell>
-        <mxCell id="zyDhq_38tlCp-nMUBXL5-226" edge="1" parent="zyDhq_38tlCp-nMUBXL5-82" style="endArrow=open;html=1;endSize=12;startArrow=diamondThin;startSize=14;startFill=1;edgeStyle=orthogonalEdgeStyle;align=left;verticalAlign=bottom;rounded=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" target="zyDhq_38tlCp-nMUBXL5-113" value="1">
-          <mxGeometry relative="1" x="-1" y="3" as="geometry">
-            <mxPoint x="270" y="260" as="sourcePoint" />
-            <mxPoint x="430" y="260" as="targetPoint" />
           </mxGeometry>
         </mxCell>
         <mxCell id="zyDhq_38tlCp-nMUBXL5-140" parent="1" style="shape=folder;fontStyle=1;tabWidth=110;tabHeight=30;tabPosition=left;html=1;boundedLbl=1;labelInHeader=1;container=1;collapsible=0;recursiveResize=0;whiteSpace=wrap;" value="&lt;font style=&quot;font-size: 14px;&quot;&gt;motor&lt;/font&gt;" vertex="1">
