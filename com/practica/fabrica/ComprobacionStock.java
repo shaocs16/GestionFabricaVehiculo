@@ -3,9 +3,7 @@ package com.practica.fabrica;
 /**
  * Resultado de la comprobación de stock antes de iniciar un ensamblaje.
  * <p>
- * Permite identificar con precisión qué componente tiene stock insuficiente,
- * evitando que {@link SistemaGestion} mezcle lógica de negocio con mensajes
- * de presentación.
+ * Permite identificar con precisión qué componente tiene stock insuficiente.
  *
  * @author Shao Capilla Sanz
  */

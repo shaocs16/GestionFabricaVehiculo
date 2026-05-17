@@ -1,0 +1,4 @@
+#BlueJ class context
+comment0.target=ComprobacionStock
+comment0.text=\r\n\ Resultado\ de\ la\ comprobaci\u00F3n\ de\ stock\ antes\ de\ iniciar\ un\ ensamblaje.\r\n\ <p>\r\n\ Permite\ identificar\ con\ precisi\u00F3n\ qu\u00E9\ componente\ tiene\ stock\ insuficiente,\r\n\ evitando\ que\ {@link\ SistemaGestion}\ mezcle\ l\u00F3gica\ de\ negocio\ con\ mensajes\r\n\ de\ presentaci\u00F3n.\r\n\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
+numComments=1
