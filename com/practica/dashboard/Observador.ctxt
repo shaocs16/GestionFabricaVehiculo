@@ -1,7 +1,0 @@
-#BlueJ class context
-comment0.target=Observador
-comment0.text=\r\n\ Interfaz\ del\ rol\ Observador\ del\ patr\u00F3n\ Observador.\r\n\ <p>\r\n\ Implementada\ por\ aquellas\ entidades\ que\ desean\ ser\ notificadas\ cuando\ un\r\n\ objeto\ {@link\ Observable}\ cambia\ su\ estado\ (por\ ejemplo,\ el\ dashboard\r\n\ recibe\ avisos\ de\ la\ cadena\ de\ montaje\ y\ del\ almac\u00E9n).\ *\r\n\ @author\ Shao\ Capilla\ Sanz\r\n
-comment1.params=message
-comment1.target=void\ update(java.lang.String)
-comment1.text=\r\n\ M\u00E9todo\ invocado\ por\ el\ observable\ para\ notificar\ un\ cambio.\r\n\r\n\ @param\ message\ texto\ descriptivo\ del\ evento\ ocurrido\r\n
-numComments=2
